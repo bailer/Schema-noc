@@ -10,6 +10,8 @@ namespace Schedule.Models
         /// <summary>
         /// namn telefonnummer och om dom är shiftledare eller ej
         /// </summary>
+        /// 
+        ///wjatwe dp
         public string workerName { get; set; }
         public string workerSurName { get; set; }
         [Key]
