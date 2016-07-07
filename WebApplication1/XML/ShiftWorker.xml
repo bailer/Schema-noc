@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ShiftWorkers>
+  <Shifts>
+    <Shift>
+      <ID>1</ID>
+      <Worker>
+        <Name>Joakim</Name>
+        <Efternamn>Järvinen</Efternamn>
+      </Worker>
+      <TypeOFShift>
+        <ShiftId>3</ShiftId>
+      </TypeOFShift>
+      <Date>2016-06-14</Date>
+      <Vacation>0</Vacation>
+      <VacationGranted>null</VacationGranted>
+      <VacationReason>null</VacationReason>
+      <Sickleave> 0 </Sickleave>
+    </Shift>
+  </Shifts>
+</ShiftWorkers>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Shifts>
+  <Shift>
+    <ShiftId>1</ShiftId>
+    <ShiftDescription> Day </ShiftDescription>
+    <ShiftStart>07:00</ShiftStart>
+    <ShiftEnd>16:00</ShiftEnd>
+  </Shift>
+  <Shift>
+    <ShiftId>3</ShiftId>
+    <ShiftDescription> Night </ShiftDescription>
+    <ShiftStart> 23:00 </ShiftStart>
+    <ShiftEnd>07:00</ShiftEnd>
+  </Shift>
+</Shifts>

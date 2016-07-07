@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Workers>
+  <Worker>
+    <Name>Joakim</Name>
+    <Nr>555</nr>
+    <ShiftLeader>0</ShiftLeader>  
+  </Worker>
+</Workers>
