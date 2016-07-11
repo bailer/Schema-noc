@@ -13,11 +13,10 @@
                 <ItemTemplate>
                         <td runat="server">
                             <table>
-                                <tr>
-                                    <td>
-                                        <a href="/WorkerDetails.aspx?id=<%#:Item.worker.workerName  %>"> <%#:Item.shift.shiftId  %></a>
-                                    </td>
-                                </tr>
+                                        <asp:DataList ID ="datalist1">
+                                            <a href ="/WorkerDetails.aspx?id=<%#:Item.worker.workerName  %>"> <%#:Item.shift.shiftId  %></a>
+                                        </asp:DataList>
+                                            
                                 <td>&nbsp;</td>
                             </table>
                         </td>
