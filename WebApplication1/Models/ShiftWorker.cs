@@ -13,13 +13,11 @@ namespace Schedule.Models
         public int shiftWorkerId { get; set;}
 
         public Worker worker { get; set; }
-
         public Shift shift { get; set; } 
         public bool vacation { get; set; }
         public bool vacationGranted { get; set; }
         public string vacationReason { get; set; }
-        public bool sickLeave { get; set; }
-        
+        public bool sickLeave { get; set; }        
         public string date { get; set; }
     }
 }

@@ -258,13 +258,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="XML\ShiftWorker.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="XML\Worker.xml" />
     <Content Include="WorkerDetails.aspx" />
     <Content Include="WorkerList.aspx" />
-    <Content Include="XML\Shift.xml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />

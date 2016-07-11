@@ -8,6 +8,9 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.IO;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.Data.Entity.Validation;
+
 namespace Schedule.Models
 {
     public class Excelparser
@@ -75,33 +78,37 @@ namespace Schedule.Models
                                 }
                             }
 
-                            else
+                            else 
                             {
-                                shift = checkShift(shiftQuery, cell);
-                                vacation = false;
-                                reason = "";
-                                if(shift.shiftId.ToLower().Contains("s"))
+                                if (cell != "")
                                 {
-                                    vacation = true;
-                                    if(shift.shiftId.ToLower().Contains("f"))
+                                    shift = checkShift(shiftQuery, cell);
+                                    vacation = false;
+                                    reason = "";
+                                    if (cell.ToLower().Contains("s"))
                                     {
-                                        reason = "Föräldraledighet";
-                                    }
-                                    else if (shift.shiftId.ToLower().Contains("t"))
-                                    {
-                                        reason = "Tjänstledighet";
+                                        vacation = true;
+                                        if (cell.ToLower().Contains("f"))
+                                        {
+                                            reason = "Föräldraledighet";
+                                        }
+                                        else if (cell.ToLower().Contains("t"))
+                                        {
+                                            reason = "Tjänstledighet";
+                                        }
+                                        else
+                                        {
+                                            reason = "semester";
+                                        }
+
                                     }
 
+                                    //shiftWorkerList.Add(addShiftWorker(worker, shift, date, vacation, reason));
+                                    workContext.shiftworkers.Add(addShiftWorker(worker, shift, date, vacation, reason));
                                 }
-                                if(shift.shiftId.ToLower().Contains("bl"))
-                                {
-                                    vacation = true;
-                                    reason = "beredskapsledig";
-                                }
-                                shiftWorkerList.Add(addShiftWorker(worker, shift, date, vacation, reason));
                                 date = date.AddDays(dateValue);
                             }
-
+                            
                         }
                                               
                     }
@@ -111,13 +118,31 @@ namespace Schedule.Models
             //Behöver hantera 5sb etc N: Hitta ett sätt att göra det programmatiskt tex med concat string och sedan plockja de enstaka bokstäverna. Lägga upp allt blir bara jobbigt.
             //kanske behöver skapa en till class medd avvikelser från pass med olika värden som man kan lägga till som foreign key.
             //shiftWorkerList.ForEach(c => workContext.shiftworkers.Add(c));
-            foreach(var c in shiftWorkerList)
+            workContext.SaveChanges();
+            /*foreach(var c in shiftWorkerList)
             {
+
                 dateValue++;
                 workContext.shiftworkers.Add(c);
-                workContext.SaveChanges();
-            }
-            int h = 0;
+                try
+                {
+                    workContext.SaveChanges();
+                }
+
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Trace.TraceInformation("Property: {0} Error: {1}",
+                                                    validationError.PropertyName,
+                                                    validationError.ErrorMessage);
+                        }
+                    }
+                }
+            }*/
+           
         }
 
         public Worker checkWorker(IQueryable<Worker> workerQuery, string surName)
@@ -151,13 +176,46 @@ namespace Schedule.Models
         public Shift checkShift(IQueryable<Shift> shiftQuery, string shiftId )
         {
             Shift match = new Shift();
-            if (shiftId == "")
+
+            if (shiftId.ToLower().Contains("1"))
+            {
+                shiftId = "1";
+            }
+            else if (shiftId.ToLower().Contains("2"))
+            {
+                shiftId = "2";
+            }
+            else if (shiftId.ToLower().Contains("3"))
+            {
+                shiftId = "3";
+            }
+            else if (shiftId.ToLower().Contains("4"))
+            {
+                shiftId = "4";
+            }
+            else if (shiftId.ToLower().Contains("5"))
+            {
+                shiftId = "5";
+            }
+            else if (shiftId.ToLower().Contains("6"))
+            {
+                shiftId = "6";
+            }
+            else if (shiftId.ToLower().Contains("7"))
+            {
+                shiftId = "7";
+            }
+            else if (shiftId.ToLower().Contains("8"))
+            {
+                shiftId = "8";
+            }
+            else if (shiftId.ToLower().Contains("bl"))
+            {
+                shiftId = "bl";
+            }
+            else
             {
                 shiftId = "0";
-            }
-            if(shiftId.ToLower().Contains("s"))
-            {
-                
             }
             var query = from Shift shift in shiftQuery
                         where shift.shiftId == shiftId
@@ -169,11 +227,7 @@ namespace Schedule.Models
                 
             }
 
-            else
-            {
-                match.shiftId = shiftId;
-            }
-            
+
             return match;
         }
 

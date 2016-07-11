@@ -13,7 +13,7 @@ namespace Schedule.Models
         public string typeOFShift { get; set; }
         public string shiftStart { get; set;}
         public string shiftEnd { get; set; }
-        
+
 
     }
 }

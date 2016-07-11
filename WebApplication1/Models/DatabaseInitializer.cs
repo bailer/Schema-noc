@@ -238,6 +238,13 @@ namespace Schedule.Models
                     shiftLeader = true
 
                 },
+                new Worker
+                {
+                    workerName = "Ace",
+                    workerSurName = "Maroney",
+                    shiftLeader = true
+
+                },
             };
             return workers;
         }
@@ -253,13 +260,7 @@ namespace Schedule.Models
                     shiftStart = "07:00",
                     shiftEnd = "16:00",
                 },
-                new Shift
-                {
-                    shiftId = "1s",
-                    typeOFShift = "Semester morgon",
-                    shiftStart = "07:00",
-                    shiftEnd = "16:00",
-                },
+
                 new Shift
                 {
                     shiftId = "2",
@@ -267,13 +268,7 @@ namespace Schedule.Models
                     shiftStart = "13:00",
                     shiftEnd = "22:00",
                 },
-                new Shift
-                {
-                    shiftId = "2s",
-                    typeOFShift = "Semester kväll",
-                    shiftStart = "13:00",
-                    shiftEnd = "22:00",
-                },
+
                 new Shift
                 {
                     shiftId = "3",
@@ -281,13 +276,7 @@ namespace Schedule.Models
                     shiftStart = "21:45",
                     shiftEnd = "07:15",
                 },
-                new Shift
-                {
-                    shiftId = "3s",
-                    typeOFShift = "Semester natt vardag",
-                    shiftStart = "21:45",
-                    shiftEnd = "07:15",
-                },
+
                 new Shift
                 {
                     shiftId = "4",
@@ -295,13 +284,7 @@ namespace Schedule.Models
                     shiftStart = "07:15",
                     shiftEnd = "19:15",
                 },
-                new Shift
-                {
-                    shiftId = "4s",
-                    typeOFShift = "Semester dag helg",
-                    shiftStart = "07:15",
-                    shiftEnd = "19:15",
-                },
+
                 new Shift
                 {
                     shiftId = "5",
@@ -309,13 +292,7 @@ namespace Schedule.Models
                     shiftStart = "19:15",
                     shiftEnd = "07:15",
                 },
-                new Shift
-                {
-                    shiftId = "5s",
-                    typeOFShift = "Semester natt helg",
-                    shiftStart = "19:15",
-                    shiftEnd = "07:15",
-                },
+
 
                 new Shift
                 {
@@ -324,13 +301,7 @@ namespace Schedule.Models
                     shiftStart = "08:00",
                     shiftEnd = "17:00",
                 },
-                new Shift
-                {
-                    shiftId = "6s",
-                    typeOFShift = "Semester dag",
-                    shiftStart = "08:00",
-                    shiftEnd = "17:00",
-                },
+
                 new Shift
                 {
                     shiftId = "7",
@@ -347,14 +318,7 @@ namespace Schedule.Models
                 },
                 new Shift
                 {
-                    shiftId = "8s",
-                    typeOFShift = "Semester shiftledare B2",
-                    shiftStart = "08:00",
-                    shiftEnd = "17:00",
-                },
-                new Shift
-                {
-                    shiftId = "BL",
+                    shiftId = "bl",
                     typeOFShift = "Beredskaps Ledig",
                     shiftStart = "",
                     shiftEnd = "",
