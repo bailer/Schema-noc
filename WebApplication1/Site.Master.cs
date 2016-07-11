@@ -80,7 +80,7 @@ namespace Schedule
         }
 
 
-        public IQueryable<Worker> GetWorkers()
+        public IQueryable<Worker> getWorkers()
         {
 
             var _db = new Schedule.Models.WorkContext();

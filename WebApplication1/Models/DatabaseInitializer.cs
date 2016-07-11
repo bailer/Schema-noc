@@ -240,7 +240,7 @@ namespace Schedule.Models
                 },
                 new Worker
                 {
-                    workerName = "Ace",
+                    workerName = "ace",
                     workerSurName = "Maroney",
                     shiftLeader = true
 

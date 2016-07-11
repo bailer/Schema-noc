@@ -15,16 +15,45 @@ namespace Schedule
         {
 
         }
-        public IQueryable<Worker> GetWorkers([QueryString("id")] string name)
+        public IEnumerable<ShiftWorker> GetWorkers([QueryString("id")] string id)
         {
-            var db = new Schedule.Models.WorkContext();
-            IQueryable<Worker> query = db.workers;
-            
-            if (name != null)
+            int nr = 0;
+            try
             {
-                query = query.Where(p => p.workerName == name);
-            };
+                 nr = Int32.Parse(id);
+            }
+            catch
+            {
+
+            }
+            var db = new Schedule.Models.WorkContext();
+
+
+            var query = from o in db.shiftworkers
+                        where o.worker.workerNr == nr
+                        select o;
+            foreach(var t in query)
+            {
+                var query2 = from b in db.shiftworkers
+                             where b.shiftWorkerId == t.shiftWorkerId
+                             select b.worker;
+                var query3 = from c in db.shiftworkers
+                             where c.shiftWorkerId == t.shiftWorkerId
+                             select c.shift;
+                t.worker = query2.First();
+                t.shift = query3.First();
+            }
+
+
             return query;
         }
     }
 }
+//query = query.Where(p => p.workerName == name);
+/*< asp:DropDownList ID = "workerList"
+ItemType = "schedule.Models.Worker"
+runat = "server"
+SelectMethod = "getWorkers" DataTextField = "workerName" >
+
+
+</ asp:DropDownList >*/
