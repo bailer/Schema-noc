@@ -22,7 +22,7 @@ namespace Schedule
         public void PopulateSchedule()
         {
             
-            Schedule.DataSource = TableGenerator.generate(DatePicker.SelectedDate.ToShortDateString() ,DropDownSpan.SelectedValue, new List<int>() { 1, 2, 3, 4, 5 });
+            Schedule.DataSource = TableGenerator.generate(/*DatePicker.SelectedDate.ToShortDateString() ,DropDownSpan.SelectedValue, new List<int>() { 1, 2, 3, 4, 5 }*/);
             Schedule.DataBind();
             
         }

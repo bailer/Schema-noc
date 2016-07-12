@@ -7,8 +7,7 @@
     </asp:DropDownList>
     <div class="calendarWrapper">
         <asp:Calendar ID="DatePicker" runat="server" DayNameFormat="FirstLetter" Font-Names="Tahoma" Font-Size="11px" 
-            NextMonthText="." PrevMonthText="." SelectMonthText="»" SelectWeekText="›" CssClass="myCalendar" OnSelectionChanged="Calendar1_SelectionChanged" 
-            OnDayRender="Calendar1_DayRender" CellPadding="0">
+            NextMonthText="." PrevMonthText="." SelectMonthText="»" SelectWeekText="›" CssClass="myCalendar" CellPadding="0">
             <OtherMonthDayStyle ForeColor="#b0b0b0" />
             <DayStyle CssClass="myCalendarDay" ForeColor="#2d3338" />
             <DayHeaderStyle CssClass="myCalendarDayHeader" ForeColor="#2d3338" />

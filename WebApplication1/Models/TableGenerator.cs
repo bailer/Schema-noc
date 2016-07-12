@@ -8,8 +8,11 @@ namespace Schedule.Models
 {
     public class TableGenerator
     {
-        static public DataTable generate(DateTime date, string span, List<int> groups)
+        static public DataTable generate(/*DateTime date, string span, List<int> groups*/)
         {
+            //för tillfäller hårdkodad till vecka måndag -söndag vekan som 2016-01-05 tillhör
+            DateTime date = DateTime.Parse("2016.01.05");
+            string span = "week";
             DataTable dt = new DataTable();
             DateTime toDate;
             if (span.Equals("day"))
@@ -23,7 +26,7 @@ namespace Schedule.Models
             {
                 toDate = date.AddMonths(1);
             }
-            var shiftworkers = ShiftWorker.get(date, toDate, groups);
+            var shiftworkers = ShiftWorker.get(date, toDate/*, groups*/);
             Dictionary<string, int> addedWorkers = new Dictionary<string, int>();
             int counter = 0;
             dt.Columns.Add(new DataColumn("Name"));

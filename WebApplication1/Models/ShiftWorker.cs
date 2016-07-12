@@ -19,15 +19,16 @@ namespace Schedule.Models
         public string vacationReason { get; set; }
         public bool sickLeave { get; set; }        
         public DateTime date { get; set; }
-        static public IQueryable<ShiftWorker> get(DateTime fromDate, DateTime toDate, List<int> groups)
+        static public IQueryable<ShiftWorker> get(DateTime fromDate, DateTime toDate/*, List<int> groups*/)
         {
 
-            groups = groups ?? new List<int> { 1, 2, 3, 4, 5 };
+            //groups = groups ?? new List<int> { 1, 2, 3, 4, 5 };
             var db = new WorkContext();
+            
             var query = from o in db.shiftworkers.Include("shift").Include("worker")
                         orderby o.date
+                        where o.date.CompareTo(fromDate) >= 0 && o.date.CompareTo(toDate) <= 0
                         select o;
-            foreach(var a in query)
             
             return query;
         }
