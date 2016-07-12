@@ -19,5 +19,12 @@ namespace Schedule.Models
         public string vacationReason { get; set; }
         public bool sickLeave { get; set; }        
         public string date { get; set; }
+        static public IEnumerable<ShiftWorker> getAll()
+        {
+            var db = new WorkContext();
+            var query = from o in db.shiftworkers.Include("shift").Include("worker")
+                        select o;
+            return query;
+        }
     }
 }
