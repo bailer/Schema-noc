@@ -97,12 +97,12 @@
         </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-            <asp:DropDownList ID="DropDownList1" runat="server">
+            <!--<asp:DropDownList ID="DropDownList1" runat="server">
                 <asp:ListItem>Day</asp:ListItem>
                 <asp:ListItem>Week</asp:ListItem>
                 <asp:ListItem>Month</asp:ListItem>
             </asp:DropDownList>
-            <div class="calendarWrapper">
+           <div class="calendarWrapper">
                 <asp:Calendar ID="Calendar1" runat="server" DayNameFormat="FirstLetter" Font-Names="Tahoma" Font-Size="11px" 
                     NextMonthText="." PrevMonthText="." SelectMonthText="»" SelectWeekText="›" CssClass="myCalendar" OnSelectionChanged="Calendar1_SelectionChanged" 
                     OnDayRender="Calendar1_DayRender" CellPadding="0">
@@ -115,10 +115,10 @@
                     <NextPrevStyle CssClass="myCalendarNextPrev" />
                     <TitleStyle CssClass="myCalendarTitle" />
                 </asp:Calendar>
-            </div>
+            </div> -->
 
 
-            <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Parse Excel Schedule" OnClick="Button1_Click" />
 
 
             <hr />
