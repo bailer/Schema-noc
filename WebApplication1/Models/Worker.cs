@@ -17,6 +17,13 @@ namespace Schedule.Models
         [Key]
         public int workerNr { get; set; }
         public bool shiftLeader { get; set; }
+        static public IEnumerable<Worker> getAll()
+        {
+            var db = new WorkContext();
+            var query = from o in db.workers
+                        select o;
+            return query;
+        }
 
     }
 }

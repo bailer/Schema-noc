@@ -35,6 +35,7 @@ namespace Schedule
             
             //query = query.Where(p => p.workerName == name);
             return query;
+            
         }
     }
 }
