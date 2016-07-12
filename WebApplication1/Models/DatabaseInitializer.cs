@@ -114,7 +114,7 @@ namespace Schedule.Models
                 },
                 new Worker
                 {
-                    workerName = "säfström",
+                    workerName = "joakim",
                     workerSurName = "säfström",
                     shiftLeader = false
 
@@ -185,7 +185,7 @@ namespace Schedule.Models
                 new Worker
                 {
                     workerName = "daniel",
-                    workerSurName = "nilsson daniel",
+                    workerSurName = "nilsson",
                     shiftLeader = true
 
                 },
@@ -242,6 +242,13 @@ namespace Schedule.Models
                 {
                     workerName = "ace",
                     workerSurName = "Maroney",
+                    shiftLeader = true
+
+                },
+                new Worker
+                {
+                    workerName = "jakob",
+                    workerSurName = "sennerby",
                     shiftLeader = true
 
                 },

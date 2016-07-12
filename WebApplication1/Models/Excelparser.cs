@@ -123,29 +123,6 @@ namespace Schedule.Models
             //kanske behöver skapa en till class medd avvikelser från pass med olika värden som man kan lägga till som foreign key.
             //shiftWorkerList.ForEach(c => workContext.shiftworkers.Add(c));
             workContext.SaveChanges();
-            /*foreach(var c in shiftWorkerList)
-            {
-
-                dateValue++;
-                workContext.shiftworkers.Add(c);
-                try
-                {
-                    workContext.SaveChanges();
-                }
-
-                catch (DbEntityValidationException dbEx)
-                {
-                    foreach (var validationErrors in dbEx.EntityValidationErrors)
-                    {
-                        foreach (var validationError in validationErrors.ValidationErrors)
-                        {
-                            Trace.TraceInformation("Property: {0} Error: {1}",
-                                                    validationError.PropertyName,
-                                                    validationError.ErrorMessage);
-                        }
-                    }
-                }
-            }*/
            
         }
 
@@ -155,23 +132,14 @@ namespace Schedule.Models
             var query = from Schedule.Models.Worker worker in workerQuery
                       where worker.workerSurName == surName
                     select worker;
-            /*List<Worker> query = new List<Worker>();
-           // int i = 0;
-            foreach(var item in workerQuery.loc)
-            {
-                if(item.workerSurName.Equals(surName))
-                {
-                    query.Add(item);
-                }
-                else { }
-            }*/
+
             if(query.Count() == 1)
             {
                 match = query.First();
             }
             else
             {
-                //match.workerName = "unknown";
+                //om det matchas fler eller inget så läggs namenet direkt från excellet in
                 match.workerName = surName;
             }
             return match;
