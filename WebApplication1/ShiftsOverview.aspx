@@ -18,6 +18,6 @@
             <TitleStyle CssClass="myCalendarTitle" />
         </asp:Calendar>
     </div>
-    <asp:GridView ID="Schedule" runat="server">
+    <asp:GridView ID="Schedule" runat="server" OnRowDataBound="Schedule_RowDataBound" >
     </asp:GridView>
 </asp:Content>
