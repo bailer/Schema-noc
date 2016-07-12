@@ -97,7 +97,7 @@
         </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-            <asp:DropDownList ID="DropDownList1" runat="server">
+            <!--<asp:DropDownList ID="DropDownList1" runat="server">
                 <asp:ListItem>Day</asp:ListItem>
                 <asp:ListItem>Week</asp:ListItem>
                 <asp:ListItem>Month</asp:ListItem>
@@ -115,7 +115,7 @@
                     <NextPrevStyle CssClass="myCalendarNextPrev" />
                     <TitleStyle CssClass="myCalendarTitle" />
                 </asp:Calendar>
-            </div>
+            </div>-->
 
 
             <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Schedule.Models;
 using System.Web.ModelBinding;
-
+using System.Data;
 namespace Schedule
 {
     public partial class WorkerList : System.Web.UI.Page
@@ -32,8 +32,7 @@ namespace Schedule
             var query = from o in db.shiftworkers.Include("shift").Include("worker")
                         where o.worker.workerNr == nr
                         select o;
-
-
+            
             //query = query.Where(p => p.workerName == name);
             Console.WriteLine("booo");
             return query;
