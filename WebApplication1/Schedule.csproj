@@ -447,6 +447,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CalendarControll.cs" />
+    <Compile Include="Models\TableGenerator.cs" />
     <Compile Include="Models\DatabaseInitializer.cs" />
     <Compile Include="Models\Excelparser.cs" />
     <Compile Include="Models\WorkContext.cs" />

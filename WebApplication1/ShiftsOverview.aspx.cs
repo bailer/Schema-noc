@@ -21,38 +21,8 @@ namespace Schedule
         }
         public void PopulateSchedule()
         {
-            DataTable dt = new DataTable();
-            var shiftworkers = ShiftWorker.getAll();
-            Dictionary<string, int> addedWorkers = new Dictionary<string, int>();
-            int counter = 0;
-            dt.Columns.Add(new DataColumn("Name"));
-            foreach (var s in shiftworkers)
-            {
-                if (!dt.Columns.Contains(s.date))
-                {
-                    dt.Columns.Add(new DataColumn(s.date));
-                }
-                string shiftId = s.shift.shiftId;
-                if (s.vacation)
-                {
-                    shiftId = shiftId + "s";
-                }
-                if (!addedWorkers.Keys.Contains(s.worker.workerName + " " + s.worker.workerSurName))
-                {
-                    DataRow row = dt.NewRow();
-                    row["Name"] = s.worker.workerName + " " + s.worker.workerSurName;
-                    row[s.date] = shiftId;
-                    dt.Rows.Add(row);
-                    addedWorkers[s.worker.workerName + " " + s.worker.workerSurName] = counter;
-                    counter++;
-
-                }
-                else
-                {
-                    dt.Rows[addedWorkers[s.worker.workerName + " " + s.worker.workerSurName]][s.date] = shiftId;
-                }
-            }
-            Schedule.DataSource = dt;
+            
+            Schedule.DataSource = TableGenerator.generate(DatePicker.SelectedDate.ToShortDateString() ,DropDownSpan.SelectedValue, new List<int>() { 1, 2, 3, 4, 5 });
             Schedule.DataBind();
         }
     }

@@ -110,12 +110,7 @@ namespace Schedule
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
-        {
-            var calendarController = new Schedule.Models.CalendarControll();
-            calendarController.dateChanged(Calendar1.SelectedDate.ToShortDateString(), DropDownList1.Text);
-            
-        }
+        
         protected void Calendar1_DayRender(object sender, System.Web.UI.WebControls.DayRenderEventArgs e)
         {
             

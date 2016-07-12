@@ -13,6 +13,24 @@ namespace Schedule {
     public partial class ShiftsOverview {
         
         /// <summary>
+        /// DropDownSpan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownSpan;
+        
+        /// <summary>
+        /// DatePicker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar DatePicker;
+        
+        /// <summary>
         /// Schedule control.
         /// </summary>
         /// <remarks>
