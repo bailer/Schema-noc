@@ -21,20 +21,38 @@ namespace Schedule
         }
         public void PopulateSchedule()
         {
-            SortedDictionary<string, List<ShiftWorker>> scheduleDict = new SortedDictionary<string, List<ShiftWorker>>();
+            DataTable dt = new DataTable();
             var shiftworkers = ShiftWorker.getAll();
+            Dictionary<string, int> addedWorkers = new Dictionary<string, int>();
+            int counter = 0;
+            dt.Columns.Add(new DataColumn("Name"));
             foreach (var s in shiftworkers)
             {
-                if (scheduleDict.ContainsKey(s.date))
+                if (!dt.Columns.Contains(s.date))
                 {
-                    scheduleDict[s.date].Add(s);
-                } else
+                    dt.Columns.Add(new DataColumn(s.date));
+                }
+                string shiftId = s.shift.shiftId;
+                if (s.vacation)
                 {
-                    scheduleDict[s.date] = new List<ShiftWorker>();
-                    scheduleDict[s.date].Add(s);
+                    shiftId = shiftId + "s";
+                }
+                if (!addedWorkers.Keys.Contains(s.worker.workerName + " " + s.worker.workerSurName))
+                {
+                    DataRow row = dt.NewRow();
+                    row["Name"] = s.worker.workerName + " " + s.worker.workerSurName;
+                    row[s.date] = shiftId;
+                    dt.Rows.Add(row);
+                    addedWorkers[s.worker.workerName + " " + s.worker.workerSurName] = counter;
+                    counter++;
+
+                }
+                else
+                {
+                    dt.Rows[addedWorkers[s.worker.workerName + " " + s.worker.workerSurName]][s.date] = shiftId;
                 }
             }
-            Schedule.DataSource = scheduleDict;
+            Schedule.DataSource = dt;
             Schedule.DataBind();
         }
     }
