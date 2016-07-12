@@ -28,7 +28,8 @@ namespace Schedule.Models
             DateTime date = new DateTime();
             double dateValue = 1;
             string cell = "-1";
-            string filePath = @"C:\Users\jarjoa\Documents\Visual Studio 2015\Projects\WebApplication1\WebApplication1\Schema.xlsx";
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string filePath = @""+baseDir+"Schema.xlsx";
             bool vacation = false;
             string reason = "";
             string dateString = "";
