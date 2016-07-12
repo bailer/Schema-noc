@@ -97,7 +97,7 @@
         </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-            <!--<asp:DropDownList ID="DropDownList1" runat="server">
+            <asp:DropDownList ID="DropDownList1" runat="server">
                 <asp:ListItem>Day</asp:ListItem>
                 <asp:ListItem>Week</asp:ListItem>
                 <asp:ListItem>Month</asp:ListItem>
@@ -105,8 +105,9 @@
            <div class="calendarWrapper">
                 <asp:Calendar ID="Calendar1" runat="server" DayNameFormat="FirstLetter" Font-Names="Tahoma" Font-Size="11px" 
                     NextMonthText="." PrevMonthText="." SelectMonthText="»" SelectWeekText="›" CssClass="myCalendar" OnSelectionChanged="Calendar1_SelectionChanged" 
-                    OnDayRender="Calendar1_DayRender" CellPadding="0">
+                    OnDayRender="Calendar1_DayRender" CellPadding="0" SelectedDate="<%# DateTime.Today %>">
                     <OtherMonthDayStyle ForeColor="#b0b0b0" />
+                    
                     <DayStyle CssClass="myCalendarDay" ForeColor="#2d3338" />
                     <DayHeaderStyle CssClass="myCalendarDayHeader" ForeColor="#2d3338" />
                     <SelectedDayStyle Font-Bold="True" Font-Size="12px" CssClass="myCalendarSelector" />
@@ -115,7 +116,7 @@
                     <NextPrevStyle CssClass="myCalendarNextPrev" />
                     <TitleStyle CssClass="myCalendarTitle" />
                 </asp:Calendar>
-            </div> -->
+            </div>
 
 
             <asp:Button ID="Button1" runat="server" Text="Parse Excel Schedule" OnClick="Button1_Click" />

@@ -71,7 +71,7 @@ namespace Schedule
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Calendar1.SelectedDate = DateTime.Today;
         }
 
         public void excelParser()

@@ -11,7 +11,8 @@
                 <asp:GridView ID="gvPerson" runat="server" AutoGenerateColumns="False" BackColor="White"  
                 BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4"  
                     SelectMethod="GetWorkers"
-                    ItemType="Schedule.Models.ShiftWorker" > 
+                    ItemType="Schedule.Models.ShiftWorker"
+                    > 
                 <RowStyle BackColor="White" ForeColor="#003399" /> 
                     <Columns> 
                         <asp:TemplateField HeaderText="LastName" SortExpression="LastName"> 
