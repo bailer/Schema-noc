@@ -32,10 +32,10 @@ namespace Schedule
             var query = from o in db.shiftworkers.Include("shift").Include("worker")
                         where o.worker.workerNr == nr
                         select o;
-            
 
-                //query = query.Where(p => p.workerName == name);
 
+            //query = query.Where(p => p.workerName == name);
+            Console.WriteLine("booo");
             return query;
         }
     }

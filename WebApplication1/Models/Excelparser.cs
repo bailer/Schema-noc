@@ -32,6 +32,7 @@ namespace Schedule.Models
             string filePath = @""+baseDir+"Schema.xlsx";
             bool vacation = false;
             string reason = "";
+            string dateString = "";
             using (FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 xssfwb = new XSSFWorkbook(file);
@@ -72,6 +73,7 @@ namespace Schedule.Models
                             {
                                 
                                 date = DateTime.Parse("2016.01.01");
+                                
                                 if (cell != "" && cell != null)
                                 {
                                     worker = checkWorker(workerQuery, cell);
@@ -105,7 +107,8 @@ namespace Schedule.Models
                                     }
 
                                     //shiftWorkerList.Add(addShiftWorker(worker, shift, date, vacation, reason));
-                                    workContext.shiftworkers.Add(addShiftWorker(worker, shift, date, vacation, reason));
+                                    dateString = date.ToShortDateString();
+                                    workContext.shiftworkers.Add(addShiftWorker(worker, shift, dateString, vacation, reason));
                                 }
                                 date = date.AddDays(dateValue);
                             }
@@ -232,12 +235,12 @@ namespace Schedule.Models
             return match;
         }
 
-        public ShiftWorker addShiftWorker(Worker worker, Shift shift, DateTime date , bool vacation ,string reason)
+        public ShiftWorker addShiftWorker(Worker worker, Shift shift, string date , bool vacation ,string reason)
         {
             ShiftWorker shiftWorker = new ShiftWorker();
             shiftWorker.shift = shift;
             shiftWorker.worker = worker;
-            shiftWorker.date = date.ToString();
+            shiftWorker.date = date;
             shiftWorker.vacation = vacation;
             shiftWorker.vacationReason = reason;
             return shiftWorker;
