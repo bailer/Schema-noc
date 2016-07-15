@@ -6,7 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+//Need varför blir alla cells större när man väljer månad som selection?
+//need 2 ordna så att man använder hela skärmen till vänster och flytta table kontrollerna (kalender, dropdown etc) till en kolumn längst till höger.
+//need 3 försök fixa så att kolumnerna längst till vänster fastnar när man scrollar. försökt med 
+/*td.locked{
+position: relative;
+top: expression(this.offsetParent.scrollTop);
+background-color: White;        
+}*/ //samt class.css locked i TableGenerator.addDetails(sender, e, Schedule);
 namespace Schedule
 {
     public partial class ShiftsOverview : Page
@@ -21,7 +28,8 @@ namespace Schedule
             }
 
         }
-        //Need varför blir alla cells större när man väljer månad som selection?
+
+
         public void PopulateSchedule()
         {
             string span = "";
@@ -64,3 +72,4 @@ namespace Schedule
         }
     }
 }
+ 

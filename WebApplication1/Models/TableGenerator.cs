@@ -77,7 +77,7 @@ namespace Schedule.Models
                 for (int b = 0; a > b; b++)
                 {
                     var header = Schedule.HeaderRow.Cells[b].Text;
-                    if (header != "name")
+                    if (header != "Name")
                     {
 
                         e.Row.Cells[b].Attributes.Add("onClick", "alert('" + e.Row.Cells[0].Text + " " + header + "');");
@@ -85,6 +85,8 @@ namespace Schedule.Models
                     else
                     {
                         e.Row.Cells[b].Attributes.Add("onClick", "alert('You have clicked :" + e.Row.Cells[0].Text + "');");
+                        //Fungerar ej N: fundera ut varför
+                        //e.Row.Cells[b].CssClass = "locked";
                     }
 
 

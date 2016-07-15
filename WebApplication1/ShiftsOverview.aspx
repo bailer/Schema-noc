@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShiftsOverview.aspx.cs" Inherits="Schedule.ShiftsOverview" %>
 <asp:Content ID="ShiftOverview" ContentPlaceHolderID="MainContent" runat="server">
+
+    
     <asp:DropDownList ID="DropDownSpan" runat="server" OnTextChanged="DropDownSpan_SelectedIndexChanged" AutoPostBack="true">
         <asp:ListItem>Day</asp:ListItem>
         <asp:ListItem>Week</asp:ListItem>
@@ -24,6 +26,8 @@
             <TitleStyle CssClass="myCalendarTitle" />
         </asp:Calendar>
     </div>
+    <div style="overflow-x:auto;width:1080px">
     <asp:GridView ID="Schedule" runat="server" OnRowDataBound="Schedule_RowDataBound" Font-Bold="True" PageSize="700" >
     </asp:GridView>
+    </div>
 </asp:Content>
