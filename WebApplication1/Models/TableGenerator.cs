@@ -79,8 +79,8 @@ namespace Schedule.Models
                     var header = Schedule.HeaderRow.Cells[b].Text;
                     if (header != "Name")
                     {
-
-                        e.Row.Cells[b].Attributes.Add("onClick", "alert('" + e.Row.Cells[0].Text + " " + header + "');");
+                        //försök få denna att kalla på en metod i shiftsoverview.aspx e.Row.Cells[b].Attributes.Add("onClick", "ShiftsOverview.clickTable();");
+                        e.Row.Cells[b].Attributes.Add("onClick", "alert('You have clicked :"+ e.Row.Cells[0].Text +" "+ header+ "')"); 
                     }
                     else
                     {

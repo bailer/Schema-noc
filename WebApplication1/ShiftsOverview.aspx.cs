@@ -70,6 +70,12 @@ namespace Schedule
         {
             PopulateSchedule();
         }
+
+        //need fixa så att detta öppnar popup från table
+        public static void clickTable()
+        {
+            //ScriptManager.RegisterStartupScript(this, typeof(string), "OPEN_WINDOW", "var Mleft = (screen.width/2)-(760/2);var Mtop = (screen.height/2)-(700/2);window.open( 'your_page.aspx', null, 'height=700,width=760,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no,top=\'+Mtop+\', left=\'+Mleft+\'' );", true);
+        }
     }
 }
  
