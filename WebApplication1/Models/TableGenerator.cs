@@ -9,7 +9,7 @@ namespace Schedule.Models
 {
     public class TableGenerator
     {
-        static public DataTable generate(DateTime date, string span /*List<int> groups*/)
+        static public DataTable generate(DateTime date, string span, List<string> groupList)
         {
             //för tillfäller hårdkodad till vecka måndag -söndag vekan som 2016-01-05 tillhör
             //DateTime date = DateTime.Parse("2016.01.05");
@@ -29,36 +29,44 @@ namespace Schedule.Models
                 toDate = date.AddMonths(1);
                 toDate = toDate.AddDays(-1);
             }
-            var shiftworkers = ShiftWorker.get(date, toDate/*, groups*/);
+            var shiftworkers = ShiftWorker.get(date, toDate, groupList);
             Dictionary<string, int> addedWorkers = new Dictionary<string, int>();
             int counter = 0;
             dt.Columns.Add(new DataColumn("Name"));
-            foreach (var s in shiftworkers)
+            foreach(var group in groupList)
             {
-                if (!dt.Columns.Contains(s.date.ToShortDateString()))
+                var groupListWorkers = shiftworkers.Where(p => p.worker.group == group);
+                groupListWorkers = groupListWorkers.OrderBy(p => p.worker.workerName);
+                foreach (var s in groupListWorkers)
                 {
-                    dt.Columns.Add(new DataColumn(s.date.ToShortDateString()));
-                }
-                string shiftId = s.shift.shiftId;
-                if (s.vacation)
-                {
-                    shiftId = shiftId + "s";
-                }
-                if (!addedWorkers.Keys.Contains(s.worker.workerName + " " + s.worker.workerSurName))
-                {
-                    DataRow row = dt.NewRow();
-                    row["Name"] = s.worker.workerName + " " + s.worker.workerSurName;
-                    row[s.date.ToShortDateString()] = shiftId;
-                    dt.Rows.Add(row);
-                    addedWorkers[s.worker.workerName + " " + s.worker.workerSurName] = counter;
-                    counter++;
 
+                    if (!dt.Columns.Contains(s.date.ToShortDateString()))
+                    {
+                        dt.Columns.Add(new DataColumn(s.date.ToShortDateString()));
+                    }
+                    string shiftId = s.shift.shiftId;
+                    if (s.vacation)
+                    {
+                        shiftId = shiftId + "s";
+                    }
+                    if (!addedWorkers.Keys.Contains(s.worker.workerName + " " + s.worker.workerSurName))
+                    {
+                        DataRow row = dt.NewRow();
+                        row["Name"] = s.worker.workerName + " " + s.worker.workerSurName;
+                        row[s.date.ToShortDateString()] = shiftId;
+                        dt.Rows.Add(row);
+                        addedWorkers[s.worker.workerName + " " + s.worker.workerSurName] = counter;
+                        counter++;
+
+                    }
+                    else
+                    {
+                        dt.Rows[addedWorkers[s.worker.workerName + " " + s.worker.workerSurName]][s.date.ToShortDateString()] = shiftId;
+                    }
                 }
-                else
-                {
-                    dt.Rows[addedWorkers[s.worker.workerName + " " + s.worker.workerSurName]][s.date.ToShortDateString()] = shiftId;
-                }
+
             }
+
             return dt;
         }
         public static void addDetails(object sender, GridViewRowEventArgs e, GridView Schedule)

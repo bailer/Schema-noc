@@ -25,16 +25,21 @@ namespace Schedule
         public void PopulateSchedule()
         {
             string span = "";
+            List<string> groupList = new List<string>();
             DateTime date = DateTime.Today;
             try
             {
+                groupList = GroupCheckbox.Items.Cast<ListItem>()
+                    .Where(li => li.Selected)
+                    .Select(li => li.Value.ToLower())
+                    .ToList();
                 span = DropDownSpan.SelectedValue.ToString().ToLower();
                 date = DatePicker.SelectedDate;
             }
             catch
             { }
             
-            Schedule.DataSource = TableGenerator.generate(date, span /*new List<int>() { 1, 2, 3, 4, 5 }*/);
+            Schedule.DataSource = TableGenerator.generate(date, span, groupList );
             Schedule.DataBind();     
         }
         protected void Schedule_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -49,6 +54,11 @@ namespace Schedule
         }
 
         protected void DropDownSpan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PopulateSchedule();
+        }
+
+        protected void GroupCheckbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateSchedule();
         }

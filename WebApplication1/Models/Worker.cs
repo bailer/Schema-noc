@@ -16,7 +16,9 @@ namespace Schedule.Models
         public string workerSurName { get; set; }
         [Key]
         public int workerNr { get; set; }
-        public bool shiftLeader { get; set; }
+        public bool admin { get; set; }
+        public string group { get; set; }
+        public string ad { get; set; }
         static public IQueryable getAll()
         {
             var db = new WorkContext();
