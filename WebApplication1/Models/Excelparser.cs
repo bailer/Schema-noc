@@ -108,6 +108,7 @@ namespace Schedule.Models
                                     //shiftWorkerList.Add(addShiftWorker(worker, shift, date, vacation, reason));
                                     
                                     workContext.shiftworkers.Add(addShiftWorker(worker, shift, date, vacation, reason));
+                                    
                                 }
                                 date = date.AddDays(dateValue);
                             }

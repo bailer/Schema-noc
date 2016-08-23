@@ -33,10 +33,23 @@ namespace Schedule.Models
             Dictionary<string, int> addedWorkers = new Dictionary<string, int>();
             int counter = 0;
             dt.Columns.Add(new DataColumn("Name"));
-            foreach(var group in groupList)
+
+            DateTime date2 = date;
+            while (date2 <= toDate)
+            {
+                if (!dt.Columns.Contains(date2.ToShortDateString()))
+                {
+                    dt.Columns.Add(new DataColumn(date2.ToShortDateString()));
+                    date2 = date2.AddDays(1);
+                }
+            }
+
+            foreach (var group in groupList)
             {
                 var groupListWorkers = shiftworkers.Where(p => p.worker.group == group);
                 groupListWorkers = groupListWorkers.OrderBy(p => p.worker.workerName);
+
+
                 foreach (var s in groupListWorkers)
                 {
 
@@ -57,7 +70,7 @@ namespace Schedule.Models
                         dt.Rows.Add(row);
                         addedWorkers[s.worker.workerName + " " + s.worker.workerSurName] = counter;
                         counter++;
-
+                        
                     }
                     else
                     {
@@ -66,7 +79,7 @@ namespace Schedule.Models
                 }
 
             }
-
+            int i = 0;
             return dt;
         }
         public static void addDetails(object sender, GridViewRowEventArgs e, GridView Schedule)
@@ -80,13 +93,14 @@ namespace Schedule.Models
                     if (header != "Name")
                     {
                         //försök få denna att kalla på en metod i shiftsoverview.aspx e.Row.Cells[b].Attributes.Add("onClick", "ShiftsOverview.clickTable();");
-                        e.Row.Cells[b].Attributes.Add("onClick", "alert('You have clicked :"+ e.Row.Cells[0].Text +" "+ header+ "')"); 
+                        e.Row.Cells[b].Attributes.Add("onClick", "alert('You have clicked :" + e.Row.Cells[0].Text +" "+ header+ "')"); 
                     }
                     else
                     {
                         e.Row.Cells[b].Attributes.Add("onClick", "alert('You have clicked :" + e.Row.Cells[0].Text + "');");
                         //Fungerar ej N: fundera ut varför
                         //e.Row.Cells[b].CssClass = "locked";
+                        
                     }
 
 
