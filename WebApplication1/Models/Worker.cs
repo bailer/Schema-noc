@@ -13,7 +13,6 @@ namespace Schedule.Models
         /// y5re
         ///
         public string workerName { get; set; }
-        public string workerSurName { get; set; }
         [Key]
         public int workerNr { get; set; }
         public bool admin { get; set; }

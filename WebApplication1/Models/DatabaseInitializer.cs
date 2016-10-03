@@ -30,239 +30,207 @@ namespace Schedule.Models
             {
                 new Worker
                 {
-                    workerName = "peter",
-                    workerSurName = "ejvergård",
+                    workerName = "peter ejvergård",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "peter",
-                    workerSurName = "strandgren",
+                    workerName = "peter strandgren",
                     admin = true,
                     group = "shiftleader"
 
                 },
                 new Worker
                 {
-                    workerName = "leo",
-                    workerSurName = "bergström",
+                    workerName = "leo bergström",
                     admin = false,
                     group = "noc"
 
                 },
                 new Worker
                 {
-                    workerName = "daniel",
-                    workerSurName = "engh",
+                    workerName = "daniel engh",
                     admin = false,
                     group = "vikarie"
                 },
                 new Worker
                 {
-                    workerName = "staffan",
-                    workerSurName = "celind",
+                    workerName = "staffan celind",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "lars åke",
-                    workerSurName = "sköld",
+                    workerName = "lars åke sköld",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "christian",
-                    workerSurName = "de mander",
+                    workerName = "christian de mander",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "joakim",
-                    workerSurName = "larsson",
+                    workerName = "joakim larsson",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "daniel",
-                    workerSurName = "santana",
+                    workerName = "daniel santana",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "alexander",
-                    workerSurName = "jansson",
+                    workerName = "alexander jansson",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "joakim",
-                    workerSurName = "järvinen",
+                    workerName = "joakim järvinen",
                     admin = true,
                     group = "vikarie"
 
                 },
                 new Worker
                 {
-                    workerName = "christoffer",
-                    workerSurName = "cnilsson",
+                    workerName = "christoffer nilsson",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "joakim",
-                    workerSurName = "säfström",
+                    workerName = "joakim säfström",
                     admin = false,
                     group = "vikarie"
 
                 },
                 new Worker
                 {
-                    workerName = "joakim",
-                    workerSurName = "jnilsson",
+                    workerName = "joakim nilsson",
                     admin = false,
                     group = "vikarie"
 
                 },
                 new Worker
                 {
-                    workerName = "peter",
-                    workerSurName = "lundgren",
+                    workerName = "peter lundgren",
                     admin = false,
                     group = "vikarie"
                 },
                 new Worker
                 {
-                    workerName = "Arash",
-                    workerSurName = "Sadeghi",
+                    workerName = "Arash Sadeghi",
                     admin = false,
                     group = "vikarie"
                 },
                 new Worker
                 {
-                    workerName = "gunnar",
-                    workerSurName = "petzäll",
+                    workerName = "gunnar petzäll",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "markus",
-                    workerSurName = "jonsson",
+                    workerName = "markus jonsson",
                     admin = false,
                     group = "noc"
                 },
                 new Worker
                 {
-                    workerName = "max",
-                    workerSurName = "wijnblad",
+                    workerName = "max wijnblad",
                     admin = false,
                     group = "vikarie"
                 },
                 new Worker
                 {
-                    workerName = "robin",
-                    workerSurName = "lindqvist",
+                    workerName = "robin lindqvist",
                     admin = false,
                     group = "vikarie"
                 },
                 new Worker
                 {
-                    workerName = "fredrik",
-                    workerSurName = "puhakka",
+                    workerName = "fredrik puhakka",
                     admin = true,
                     group = "shiftleader"
                 },
                 new Worker
                 {
-                    workerName = "daniel",
-                    workerSurName = "dnilsson",
+                    workerName = "daniel nilsson",
                     admin = true,
                     group = "shiftleader"
                 },
                 new Worker
                 {
-                    workerName = "stefan",
-                    workerSurName = "ericsson",
+                    workerName = "stefan ericsson",
                     admin = true,
                     group = "shiftleader"
 
                 },
                 new Worker
                 {
-                    workerName = "niklas",
-                    workerSurName = "sundh",
+                    workerName = "niklas sundh",
                     admin = true,
                     group = "shiftleader"
 
                 },
                 new Worker
                 {
-                    workerName = "jenny",
-                    workerSurName = "malmgren",
+                    workerName = "jenny malmgren",
                     admin = true,
                     group = "shiftleader"
 
                 },
                 new Worker
                 {
-                    workerName = "ulrika",
-                    workerSurName = "göth",
+                    workerName = "ulrika göth",
                     admin = false,
                     group = "annat"
 
                 },
                 new Worker
                 {
-                    workerName = "micke",
-                    workerSurName = "forsberg",
+                    workerName = "micke forsberg",
                     admin = false,
                     group = "annat"
 
                 },
                 new Worker
                 {
-                    workerName = "marcus",
-                    workerSurName = "sjöberg",
+                    workerName = "marcus sjöberg",
                     admin = false,
                     group = "annat"
 
                 },
                 new Worker
                 {
-                    workerName = "johan",
-                    workerSurName = "ingevaldsson",
+                    workerName = "johan ingevaldsson",
                     admin = true,
                     group = "shiftleader"
 
                 },
                 new Worker
                 {
-                    workerName = "ace",
-                    workerSurName = "Maroney",
+                    workerName = "ace Maroney",
                     admin = true,
                     group = "shiftleader"
 
                 },
                 new Worker
                 {
-                    workerName = "jakob",
-                    workerSurName = "sennerby",
+                    workerName = "jakob sennerby",
                     admin = false,
                     group = "vikarie"
 
                 },
                 new Worker
                 {
-                    workerName = "Marcus",
-                    workerSurName = "Wijnblad",
+                    workerName = "Marcus Wijnblad",
                     admin = false,
                     group = "vikarie"
 

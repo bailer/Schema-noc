@@ -62,19 +62,19 @@ namespace Schedule.Models
                     {
                         shiftId = shiftId + "s";
                     }
-                    if (!addedWorkers.Keys.Contains(s.worker.workerName + " " + s.worker.workerSurName))
+                    if (!addedWorkers.Keys.Contains(s.worker.workerName))
                     {
                         DataRow row = dt.NewRow();
-                        row["Name"] = s.worker.workerName + " " + s.worker.workerSurName;
+                        row["Name"] = s.worker.workerName;
                         row[s.date.ToShortDateString()] = shiftId;
                         dt.Rows.Add(row);
-                        addedWorkers[s.worker.workerName + " " + s.worker.workerSurName] = counter;
+                        addedWorkers[s.worker.workerName] = counter;
                         counter++;
                         
                     }
                     else
                     {
-                        dt.Rows[addedWorkers[s.worker.workerName + " " + s.worker.workerSurName]][s.date.ToShortDateString()] = shiftId;
+                        dt.Rows[addedWorkers[s.worker.workerName]][s.date.ToShortDateString()] = shiftId;
                     }
                 }
 

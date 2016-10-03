@@ -126,11 +126,11 @@ namespace Schedule.Models
            
         }
 
-        public Worker checkWorker(IQueryable<Worker> workerQuery, string surName)
+        public Worker checkWorker(IQueryable<Worker> workerQuery, string name)
         {
             Worker match = new Worker();
             var query = from Schedule.Models.Worker worker in workerQuery
-                      where worker.workerSurName == surName
+                      where worker.workerName == name
                     select worker;
 
             if(query.Count() == 1)
@@ -140,7 +140,7 @@ namespace Schedule.Models
             else
             {
                 //om det matchas fler eller inget så läggs namenet direkt från excellet in
-                match.workerName = surName;
+                match.workerName = name;
             }
             return match;
         }
