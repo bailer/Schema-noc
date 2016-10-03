@@ -90,7 +90,7 @@ namespace Schedule.Models
                 for (int b = 0; a > b; b++)
                 {
                     var header = Schedule.HeaderRow.Cells[b].Text;
-                    if (header != "Name")
+                    /*if (header != "Name")
                     {
                         //försök få denna att kalla på en metod i shiftsoverview.aspx e.Row.Cells[b].Attributes.Add("onClick", "ShiftsOverview.clickTable();");
                         e.Row.Cells[b].Attributes.Add("onClick", "alert('You have clicked :" + e.Row.Cells[0].Text +" "+ header+ "')"); 
@@ -101,7 +101,7 @@ namespace Schedule.Models
                         //Fungerar ej N: fundera ut varför
                         //e.Row.Cells[b].CssClass = "locked";
                         
-                    }
+                    }*/
 
 
                     e.Row.Cells[b].Attributes["style"] += "cursor:pointer;cursor:hand;";
@@ -142,7 +142,7 @@ namespace Schedule.Models
                     {
                         e.Row.Cells[b].Text = ("S");
                     }
-                    if (e.Row.Cells[b].Text.Contains("s") && e.Row.Cells[b].Text != "&nbsp;" && b != 0)
+                    if (e.Row.Cells[b].Text.Contains("s") && e.Row.Cells[b].Text != "&nbsp;" && b != 0 && header != "Name")
                     {
                         e.Row.Cells[b].BackColor = System.Drawing.Color.Orange;
                         e.Row.Cells[b].Text = e.Row.Cells[b].Text.ToUpper();

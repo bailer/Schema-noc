@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShiftsOverview.aspx.cs" Inherits="Schedule.ShiftsOverview" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShiftsOverview.aspx.cs" EnableEventValidation="false"  Inherits="Schedule.ShiftsOverview" %>
 <asp:Content ID="ShiftOverview" ContentPlaceHolderID="MainContent" runat="server">
 
     
@@ -26,8 +26,20 @@
             <TitleStyle CssClass="myCalendarTitle" />
         </asp:Calendar>
     </div>
+    <asp:Button ID="ClientButton" runat="server" Text="Launch Modal Popup (Client)" />
     <div style="overflow-x:auto;width:1080px">
-    <asp:GridView ID="Schedule" runat="server" OnRowDataBound="Schedule_RowDataBound" Font-Bold="True" PageSize="700" >
+        <asp:GridView ID="Schedule" runat="server" OnRowDataBound="Schedule_RowDataBound" Font-Bold="True" PageSize="700" OnRowUpdating="Schedule_RowUpdating" OnRowEditing="Schedule_RowEditing" OnRowCancelingEdit="Schedule_RowCancelingEdit">
+            <Columns>
+                <asp:TemplateField>  
+                    <ItemTemplate>  
+                        <asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:Button ID="btn_Update" runat="server" Text="Update" CommandName="Update"/>  
+                        <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CommandName="Cancel"/>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>   
+            </Columns>
     </asp:GridView>
     </div>
 </asp:Content>
