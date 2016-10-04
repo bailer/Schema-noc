@@ -260,7 +260,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ShiftsOverview.aspx" />
-    <Content Include="WorkerDetails.aspx" />
     <Content Include="WorkerList.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -485,13 +484,6 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="WorkerDetails.aspx.cs">
-      <DependentUpon>WorkerDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WorkerDetails.aspx.designer.cs">
-      <DependentUpon>WorkerDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="WorkerList.aspx.cs">
       <DependentUpon>WorkerList.aspx</DependentUpon>

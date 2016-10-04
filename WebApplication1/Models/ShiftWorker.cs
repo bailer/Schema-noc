@@ -35,8 +35,19 @@ namespace Schedule.Models
             
             return query;
         }
-        static public void deleteShiftsFromWorkers(Worker worker)
+        static public void deleteShiftWorkers(Worker worker)
         {
+            var db = new WorkContext();
+            var matches = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr);
+            if(matches != null)
+            {
+                foreach (ShiftWorker shiftWorker in matches)
+                {
+                    db.shiftworkers.Remove(shiftWorker);
+
+                }
+                db.SaveChanges();
+            }
 
         }
         static public ShiftWorker getShiftworker(Worker worker, DateTime date)
@@ -47,8 +58,10 @@ namespace Schedule.Models
             ShiftWorker shiftWorker = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).Include("shift").Include("worker").FirstOrDefault();
             return shiftWorker;
         }
-        public static void update(object sender, GridViewUpdateEventArgs e)
+
+        public static void updateFromGridView(object sender, GridViewUpdateEventArgs e)
         {
+            var ctx = new WorkContext();
             var values = e.NewValues;
             ShiftWorker shiftWorker;
             Shift newShift;
@@ -60,8 +73,7 @@ namespace Schedule.Models
             {
                 changed = false;
                 added = false;
-                using (var ctx = new WorkContext())
-                {
+
 
                     var a = shift.Key;
                     string b = null;
@@ -71,7 +83,7 @@ namespace Schedule.Models
                     }
                     if (a.ToString() == "Name")
                     {
-                        worker = Worker.getWorker(b.ToString());
+                        worker = Worker.getWorker(b.ToString(),  ctx);
                     }
                     else
                     {                    
@@ -164,7 +176,7 @@ namespace Schedule.Models
                     //(s => s.StudentName == "New Student1").FirstOrDefault<Student>();
                 }
 
-            }
+            
         }
     }
 }

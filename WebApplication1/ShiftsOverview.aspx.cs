@@ -117,7 +117,7 @@ namespace Schedule
         protected void Schedule_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             //TODO: koppla mot exception i shiftoworker.update om några errors hittades.
-            ShiftWorker.update(sender, e);
+            ShiftWorker.updateFromGridView(sender, e);
             Schedule.EditIndex = -1;
             PopulateSchedule();
         }

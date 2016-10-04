@@ -18,24 +18,48 @@ namespace Schedule.Models
         public bool admin { get; set; }
         public string group { get; set; }
         public string ad { get; set; }
-        static public IQueryable getAll()
+
+        static public IEnumerable<Worker> getAll()
         {
             var db = new WorkContext();
-            var query = from o in db.workers
-                        orderby o.workerNr
-                        select o;
+            // var query = from o in db.workers
+            // orderby o.workerNr
+            // select o;
+            IEnumerable<Worker> query = db.workers.Where(s => s.workerNr != null);
+            
             return query;
         }
-        static public Worker getWorker(string name)
+        static public Worker getWorker(string name, WorkContext db)
         {
-            var db = new WorkContext();
             Worker match = new Worker();
             match = db.workers.Where(s => s.workerName == name).FirstOrDefault();
             return match;
         }
+
+        static public void updateWorker(Worker worker)
+        {
+            var db = new WorkContext();
+            db.Entry(worker).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
         static public void deleteWorker(string name)
         {
-
+            var db = new WorkContext();
+            Worker worker = Worker.getWorker(name, db);
+            if (worker != null)
+            {
+                // Ta bort alla shiftworkers som har att göra med den
+                ShiftWorker.deleteShiftWorkers(worker);
+                db.workers.Remove(worker);
+                db.SaveChanges();
+            }
+            else
+            {
+                //TODO Add exception
+               //throw not found exception
+            }
+ 
         }
     }
 }

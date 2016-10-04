@@ -13,42 +13,125 @@ namespace Schedule
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-        public IEnumerable<ShiftWorker> GetWorkers([QueryString("id")] string id)
-        {
-            //TODO display these in dropdown instead of list
-            int nr = 0;
-            try
+            if(!IsPostBack)
             {
-                 nr = Int32.Parse(id);
+                changeUser.Visible = true;
             }
-            catch
-            {
-
-            }
-            var db = new Schedule.Models.WorkContext();
-
-
-            var query = from o in db.shiftworkers.Include("shift").Include("worker")
-                        where o.worker.workerNr == nr
-                        select o;
-
-            //query = query.Where(p => p.workerName == name);
-            return query;
             
         }
-        public static void displayWorker()
+        #region Update
+        protected void workerDropdown_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                updateDropdown();
+            }
+        
+            
+        }
+        protected void workerDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updatedLabel.Visible = false;
+            deletedLabel.Visible = false;
+            string name = workerDropdown.SelectedItem.ToString();
+            if (name != "Select a name")
+            {
+                populateWorker(name);
+            }
             /*
              when selected from dropdown
              populate workerboxes
 
              */
-
         }
-        public static void changeWorker()
+        protected void updateButton_Click(object sender, EventArgs e)
         {
+            string name = workerDropdown.SelectedItem.ToString().ToLower();
+            if (name != null && workerDropdown.SelectedItem.ToString().ToLower() != "select a name" && workerName.Text != "")
+            {
+                changeWorker(name);
+            }
+            else
+            {
+                //TODO släng upp popup ifall namn inte är ifyllt.
+            }            
+        }
+        protected void deleteButton_Click(object sender, EventArgs e)
+        {
+            string name = workerDropdown.SelectedItem.ToString().ToLower();
+            if (name != null && workerDropdown.SelectedItem.ToString().ToLower() != "select a name")
+            {
+                deleteWorker(name);
+            }
+            else
+            {
+                //TODO släng upp popup ifall namn inte är ifyllt.
+            }
+        }
+
+        protected void updateDropdown()
+        {
+            workerDropdown.Items.Clear();
+            IEnumerable<Worker> query = Worker.getAll();
+            workerDropdown.Items.Add("Select a name");
+            foreach (Worker worker in query)
+            {
+                workerDropdown.Items.Add(worker.workerName);
+            }
+        }
+        protected void populateWorker(string name)
+        {
+            var db = new WorkContext();
+            Worker worker = Worker.getWorker(name, db);
+            workerName.Text = worker.workerName;
+            workerAD.Text = worker.ad;
+            workerGroup.SelectedValue = worker.group.ToLower();
+            if (worker.admin == true)
+            {
+                Admin.Checked = true;
+            }
+            else
+            {
+                Admin.Checked = false;
+            }
+            updateButton.Visible = true;
+            deleteButton.Visible = true;
+            
+        }
+        protected void deleteWorker(string name)
+        {
+            
+            if(name != null)
+            {
+                Worker.deleteWorker(name);
+            }
+            updateDropdown();
+            deletedLabel.Visible = true;
+        }
+        protected void changeWorker(string name)
+        {
+            var db = new WorkContext();
+            Worker worker = Worker.getWorker(name, db);
+            worker.workerName = workerName.Text.ToLower();
+            worker.ad = workerAD.Text.ToLower();
+            worker.group = workerGroup.Text.ToLower();
+
+            if (Admin.Checked == true)
+            {
+                worker.admin = true;
+            }
+            else
+            {
+                worker.admin = false;
+            }
+            workerName.Text = "";
+            workerAD.Text = "";
+            Admin.Checked = false;
+            workerGroup.ClearSelection();
+            Worker.updateWorker(worker);
+            updateDropdown();
+            updatedLabel.Visible = true;
+            //TODO: Skicka popup om att det är uppdaterat alt lägg en label som skriver "Entry updated"
             /*when button is pushed
              get worker from worker.cs with name
              workername from textbox
@@ -59,7 +142,9 @@ namespace Schedule
 
              */
         }
-        public static void addWorker()
+        #endregion
+        #region Addworker/days
+        protected void addWorker()
         {
             /*
              new workcontext
@@ -71,7 +156,7 @@ namespace Schedule
              ifworkerdays = yes addworkerdays()
              */
         }
-        public static void addWorkerDays()
+        protected void addWorkerDays()
         {
             /*
             date startdag
@@ -104,6 +189,9 @@ namespace Schedule
             context save
             */
         }
+        #endregion
+
+
     }
 }
 /*
