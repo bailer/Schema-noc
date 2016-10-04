@@ -74,34 +74,8 @@ namespace Schedule
             
         }
 
-        public void excelParser()
-        {
-
-        }
 
 
-        public IQueryable<Worker> getWorkers()
-        {
-
-            var _db = new Schedule.Models.WorkContext();
-            IQueryable<Worker> query = _db.workers;
-            return query;
-        }
-
-        public IQueryable<Shift> GetShifts()
-        {
-            var _db = new Schedule.Models.WorkContext();
-            IQueryable<Shift> query = _db.shifts;
-            return query;
-        }
-
-
-        public IQueryable<ShiftWorker> GetShiftworkers()
-        {
-            var _db = new Schedule.Models.WorkContext();
-            IQueryable<ShiftWorker> query = _db.shiftworkers;
-            return query;
-        }
         
 
 
@@ -120,11 +94,6 @@ namespace Schedule
             todayStyle.ForeColor = System.Drawing.Color.White;
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            var _db = new Schedule.Models.WorkContext();
-            var parser = new Schedule.Models.Excelparser();
-            parser.excelParser(_db);
-        }
+
     }
 }

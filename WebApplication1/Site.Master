@@ -75,33 +75,16 @@
             </div>
         </div>
         <div id="TitleContent" style="text-align: center"> 
-            <a runat="server" href="~/"> <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/logo.jpg" BorderStyle="none" /></a>
+            
             <br />
         </div>
         
-        <div id="CategoryMenu" style="text-align: center">
-             <asp:ListView ID="ListView1"
-                ItemType="Schedule.Models.Worker"
-                runat="server"
-                SelectMethod="GetWorkers">
-                <ItemTemplate>
-                    <b style="font-size: large; font-style:normal">
-                        <a href="/WorkerList.aspx?id=<%#: Item.workerNr %>">
-                            <%#: Item.workerName %>
-                        </a>
-                    </b>
-                </ItemTemplate>
-                <ItemSeparatorTemplate> | </ItemSeparatorTemplate>
-            </asp:ListView>
 
-                
-        </div>
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
             
 
 
-            <asp:Button ID="Button1" runat="server" Text="Parse Excel Schedule" OnClick="Button1_Click" />
 
 
             <hr />

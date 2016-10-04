@@ -39,6 +39,7 @@ namespace Schedule
             string span = "";
             List<string> groupList = new List<string>();
             DateTime date = DateTime.Today;
+            int[] array = new int[] { 1, 1, 1, 1, 1, 0, 0, 6, 6, 0, 0, 6, 4, 4, 2,2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 5, 5, 0, 0, 2, 2, 2, 0, 0 };
             try
             {
                 groupList = GroupCheckbox.Items.Cast<ListItem>()
@@ -132,6 +133,13 @@ namespace Schedule
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             Schedule.EditIndex = -1;
             PopulateSchedule();
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            var _db = new Schedule.Models.WorkContext();
+            var parser = new Schedule.Models.Excelparser();
+            parser.excelParser(_db);
         }
     }
 }

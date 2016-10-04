@@ -35,12 +35,16 @@ namespace Schedule.Models
             
             return query;
         }
+        static public void deleteShiftsFromWorkers(Worker worker)
+        {
+
+        }
         static public ShiftWorker getShiftworker(Worker worker, DateTime date)
         {
 
             //groups = groups ?? new List<int> { 1, 2, 3, 4, 5 };
             var db = new WorkContext();
-            ShiftWorker shiftWorker = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
+            ShiftWorker shiftWorker = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).Include("shift").Include("worker").FirstOrDefault();
             return shiftWorker;
         }
         public static void update(object sender, GridViewUpdateEventArgs e)
@@ -51,7 +55,6 @@ namespace Schedule.Models
             Worker worker = null;
             bool changed;
             bool added;
-            string name = "";
 
             foreach (DictionaryEntry shift in values)
             {

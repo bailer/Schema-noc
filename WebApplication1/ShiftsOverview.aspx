@@ -40,5 +40,7 @@
                 </asp:TemplateField>   
             </Columns>
     </asp:GridView>
+        
+    <asp:Button ID="Button1" runat="server" Text="Parse Excel Schedule" OnClick="Button1_Click" />
     </div>
 </asp:Content>

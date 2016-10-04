@@ -33,5 +33,9 @@ namespace Schedule.Models
             match = db.workers.Where(s => s.workerName == name).FirstOrDefault();
             return match;
         }
+        static public void deleteWorker(string name)
+        {
+
+        }
     }
 }
