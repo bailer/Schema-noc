@@ -14,6 +14,13 @@ namespace Schedule.Models
         public string shiftStart { get; set;}
         public string shiftEnd { get; set; }
 
-
+        public static Shift getShift(string id)
+        {
+            var db = new WorkContext();
+            Shift shift;
+            shift = db.shifts.Where(s => s.shiftId == id).FirstOrDefault<Shift>();
+            return shift;
+        }
     }
+
 }

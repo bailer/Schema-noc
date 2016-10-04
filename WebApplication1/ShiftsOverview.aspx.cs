@@ -115,51 +115,8 @@ namespace Schedule
 
         protected void Schedule_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            var values = e.NewValues;
-            var oldValues = e.OldValues;
-            var OldValues = Schedule.Rows[e.RowIndex].Cells;
-            //string date = Schedule.Rows[e.RowIndex].Cells[b].Text;
-            //TextBox date = Schedule.Rows[e.RowIndex].FindControl(Schedule.Rows[e.RowIndex].Cells[b].Text) as TextBox;
-            ShiftWorker shiftWorker;
-            Shift newShift;
-            Worker worker;
-            string name = "";
-            foreach(DictionaryEntry shift in values)
-            {
-                using (var ctx = new WorkContext())
-                {
-                    
-                    var a = shift.Key;
-                    var b = shift.Value;
-                    if(a.ToString() == "Name")
-                    {
-                        name = b.ToString();
-                        
-                    }
-                    else
-                    {
-                        //TODO Vid om ett skift inte är tagen av personen kommer shiftworker bli = null. Detta då databasen inte har någon post på det datumet för den personen. Gör en ifsats som kollar om det finns en shiftworker med 
-                        // dessa parametrar om det inte finns så skapa en med infon som man får in. 
-                        DateTime date = Convert.ToDateTime(a);
-                        worker = ctx.workers.Where(s => s.workerName == name).FirstOrDefault();
-                        newShift = ctx.shifts.Where(s => s.shiftId == b.ToString()).FirstOrDefault<Shift>();
-                        shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
-                        shiftWorker.shift = newShift;
-
-                        ctx.Entry(shiftWorker).State = System.Data.Entity.EntityState.Modified;
-                        ctx.SaveChanges();
-                        
-
-                    }
-                    //http://www.entityframeworktutorial.net/EntityFramework5/create-dbcontext-in-entity-framework5.aspx
-
-                    //shiftWorker = ctx.shiftworkers.Where(s => s.worker == shift.value)
-                    //(s => s.StudentName == "New Student1").FirstOrDefault<Student>();
-                }
-            }
-
-
-
+            //TODO: koppla mot exception i shiftoworker.update om några errors hittades.
+            ShiftWorker.update(sender, e);
             Schedule.EditIndex = -1;
             PopulateSchedule();
         }

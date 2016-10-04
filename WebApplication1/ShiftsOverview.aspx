@@ -26,7 +26,6 @@
             <TitleStyle CssClass="myCalendarTitle" />
         </asp:Calendar>
     </div>
-    <asp:Button ID="ClientButton" runat="server" Text="Launch Modal Popup (Client)" />
     <div style="overflow-x:auto;width:1080px">
         <asp:GridView ID="Schedule" runat="server" OnRowDataBound="Schedule_RowDataBound" Font-Bold="True" PageSize="700" OnRowUpdating="Schedule_RowUpdating" OnRowEditing="Schedule_RowEditing" OnRowCancelingEdit="Schedule_RowCancelingEdit">
             <Columns>

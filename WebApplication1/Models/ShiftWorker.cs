@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Collections;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 namespace Schedule.Models
 {
     public class ShiftWorker
@@ -31,6 +34,134 @@ namespace Schedule.Models
                         select o;
             
             return query;
+        }
+        static public ShiftWorker getShiftworker(Worker worker, DateTime date)
+        {
+
+            //groups = groups ?? new List<int> { 1, 2, 3, 4, 5 };
+            var db = new WorkContext();
+            ShiftWorker shiftWorker = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
+            return shiftWorker;
+        }
+        public static void update(object sender, GridViewUpdateEventArgs e)
+        {
+            var values = e.NewValues;
+            ShiftWorker shiftWorker;
+            Shift newShift;
+            Worker worker = null;
+            bool changed;
+            bool added;
+            string name = "";
+
+            foreach (DictionaryEntry shift in values)
+            {
+                changed = false;
+                added = false;
+                using (var ctx = new WorkContext())
+                {
+
+                    var a = shift.Key;
+                    string b = null;
+                    if (shift.Value != null)
+                    {
+                        b = shift.Value.ToString();
+                    }
+                    if (a.ToString() == "Name")
+                    {
+                        worker = Worker.getWorker(b.ToString());
+                    }
+                    else
+                    {                    
+
+                        DateTime date = Convert.ToDateTime(a);
+                        
+                        if (shift.Value != null)
+                        {
+                            //string match = b[0].ToString();
+                            //newShift = ctx.shifts.Where(s => s.shiftId == match).FirstOrDefault<Shift>();
+                            //shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
+
+                            newShift = Shift.getShift(b[0].ToString());
+                            shiftWorker = getShiftworker(worker, date);
+
+                            if (shiftWorker == null && newShift != null && worker != null)
+                            {
+                                ShiftWorker newShiftWorker = new ShiftWorker();
+                                newShiftWorker.shift = newShift;
+                                newShiftWorker.worker = worker;
+                                newShiftWorker.date = date;
+                                if (b.ToLower().Contains("s"))
+                                {
+                                    newShiftWorker.vacation = true;
+                                    newShiftWorker.vacationReason = "senester";
+                                }
+                                shiftWorker = newShiftWorker;
+
+                                added = true;
+                            }
+
+                            else if (shiftWorker != null)
+                            {
+                                if (b.ToLower().Contains("s"))
+                                {
+                                    shiftWorker.vacation = true;
+                                    shiftWorker.vacationReason = "senester";
+                                }
+                                else
+                                {
+                                    shiftWorker.vacation = false;
+                                    shiftWorker.vacationReason = null;
+                                }
+                                shiftWorker.shift = newShift;
+                                changed = true;
+                            }
+
+                            if (added == true)
+                            {
+                                ctx.shiftworkers.Add(shiftWorker);
+                                ctx.SaveChanges();
+                            }
+
+                            else if (changed == true)
+                            {
+                                ctx.Entry(shiftWorker).State = System.Data.Entity.EntityState.Modified;
+                                ctx.SaveChanges();
+                            }
+
+                            else
+                            {
+                                //Visar alerts omn något vart fel. 
+                                //throw exception here
+                                //string errortext = " Här vart något fel vänligen dubbelkolla parametrarna";
+                                // ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + a + " " + b + errortext + "');", true);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            newShift = null;
+                            //TODO: Varför funkar ctx.shiftworkers och inte getshiftworker()...
+                            //shiftWorker = getShiftworker(worker, date);
+                            shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
+
+                            if (shiftWorker != null)
+                            {
+                                ctx.shiftworkers.Remove(shiftWorker);
+                                ctx.SaveChanges();
+                            }
+                        }
+
+
+
+
+                    }
+                    //http://www.entityframeworktutorial.net/EntityFramework5/create-dbcontext-in-entity-framework5.aspx
+
+                    //shiftWorker = ctx.shiftworkers.Where(s => s.worker == shift.value)
+                    //(s => s.StudentName == "New Student1").FirstOrDefault<Student>();
+                }
+
+            }
         }
     }
 }

@@ -26,5 +26,12 @@ namespace Schedule.Models
                         select o;
             return query;
         }
+        static public Worker getWorker(string name)
+        {
+            var db = new WorkContext();
+            Worker match = new Worker();
+            match = db.workers.Where(s => s.workerName == name).FirstOrDefault();
+            return match;
+        }
     }
 }
