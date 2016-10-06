@@ -57,6 +57,14 @@ namespace Schedule.Models
             ShiftWorker shiftWorker = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).Include("shift").Include("worker").FirstOrDefault();
             return shiftWorker;
         }
+        static public ShiftWorker getShiftworker(Worker worker, DateTime date, WorkContext db)
+        {
+
+            //groups = groups ?? new List<int> { 1, 2, 3, 4, 5 };
+            //var db = new WorkContext();
+            ShiftWorker shiftWorker = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).Include("shift").Include("worker").FirstOrDefault();
+            return shiftWorker;
+        }
 
         public static void updateFromGridView(object sender, GridViewUpdateEventArgs e)
         {
@@ -85,7 +93,7 @@ namespace Schedule.Models
                     worker = Worker.getWorker(b.ToString(), ctx);
                 }
                 
-                else //if(checkInputs(b, ctx))
+                else if(checkInputs(b, ctx))
                 {
 
                     DateTime date = Convert.ToDateTime(a);
@@ -96,8 +104,8 @@ namespace Schedule.Models
                         //newShift = ctx.shifts.Where(s => s.shiftId == match).FirstOrDefault<Shift>();
                         //shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
 
-                        newShift = Shift.getShift(b[0].ToString());
-                        shiftWorker = getShiftworker(worker, date);
+                        newShift = Shift.getShift(b[0].ToString(), ctx);
+                        shiftWorker = getShiftworker(worker, date, ctx);
 
                         if (shiftWorker == null && newShift != null && worker != null)
                         {
@@ -185,15 +193,16 @@ namespace Schedule.Models
             {
                 var compareShift = Shift.getShifts(db);
                 input = input.ToLower();
-                if (input.Count() == 1 && compareShift.Where(s => s.shiftId == input[0].ToString()) != null || input[0].ToString().ToLower() == "s")
+                var a = compareShift.Where(s => s.shiftId == input[0].ToString());
+                if (input.Count() == 1 && a.Count() != 0 || input[0].ToString().ToLower() == "s")
                 {
                     pass = true;
                 }
-                else if (input.Count() == 2 && compareShift.Where(s => s.shiftId == input[0].ToString()) != null && input[1].ToString() == "s" || input == "bl")
+                else if (input.Count() == 2 && a.Count() != 0 && input[1].ToString() == "s" || input == "bl")
                 {
                     pass = true;
                 }
-                else if (input.Count() == 3 && compareShift.Where(s => s.shiftId == input[0].ToString()) != null && input[1].ToString() == "s" && (input[2].ToString() == "f" || input[1].ToString() == "r"))
+                else if (input.Count() == 3 && a.Count() != 0 && input[1].ToString() == "s" && (input[2].ToString() == "f" || input[1].ToString() == "r"))
                 {
                     pass = true;
 
