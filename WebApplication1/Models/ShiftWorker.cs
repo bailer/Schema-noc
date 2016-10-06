@@ -35,9 +35,8 @@ namespace Schedule.Models
             
             return query;
         }
-        static public void deleteShiftWorkers(Worker worker)
+        static public void deleteShiftWorkers(Worker worker, WorkContext db)
         {
-            var db = new WorkContext();
             var matches = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr);
             if(matches != null)
             {
@@ -75,108 +74,137 @@ namespace Schedule.Models
                 added = false;
 
 
-                    var a = shift.Key;
-                    string b = null;
+                var a = shift.Key;
+                string b = null;
+                if (shift.Value != null)
+                {
+                    b = shift.Value.ToString();
+                }
+                if (a.ToString() == "Name")
+                {
+                    worker = Worker.getWorker(b.ToString(), ctx);
+                }
+                
+                else //if(checkInputs(b, ctx))
+                {
+
+                    DateTime date = Convert.ToDateTime(a);
+
                     if (shift.Value != null)
                     {
-                        b = shift.Value.ToString();
-                    }
-                    if (a.ToString() == "Name")
-                    {
-                        worker = Worker.getWorker(b.ToString(),  ctx);
-                    }
-                    else
-                    {                    
+                        //string match = b[0].ToString();
+                        //newShift = ctx.shifts.Where(s => s.shiftId == match).FirstOrDefault<Shift>();
+                        //shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
 
-                        DateTime date = Convert.ToDateTime(a);
-                        
-                        if (shift.Value != null)
+                        newShift = Shift.getShift(b[0].ToString());
+                        shiftWorker = getShiftworker(worker, date);
+
+                        if (shiftWorker == null && newShift != null && worker != null)
                         {
-                            //string match = b[0].ToString();
-                            //newShift = ctx.shifts.Where(s => s.shiftId == match).FirstOrDefault<Shift>();
-                            //shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
-
-                            newShift = Shift.getShift(b[0].ToString());
-                            shiftWorker = getShiftworker(worker, date);
-
-                            if (shiftWorker == null && newShift != null && worker != null)
+                            ShiftWorker newShiftWorker = new ShiftWorker();
+                            newShiftWorker.shift = newShift;
+                            newShiftWorker.worker = worker;
+                            newShiftWorker.date = date;
+                            if (b.ToLower().Contains("s"))
                             {
-                                ShiftWorker newShiftWorker = new ShiftWorker();
-                                newShiftWorker.shift = newShift;
-                                newShiftWorker.worker = worker;
-                                newShiftWorker.date = date;
-                                if (b.ToLower().Contains("s"))
-                                {
-                                    newShiftWorker.vacation = true;
-                                    newShiftWorker.vacationReason = "senester";
-                                }
-                                shiftWorker = newShiftWorker;
-
-                                added = true;
+                                newShiftWorker.vacation = true;
+                                newShiftWorker.vacationReason = "senester";
                             }
+                            shiftWorker = newShiftWorker;
 
-                            else if (shiftWorker != null)
+                            added = true;
+                        }
+
+                        else if (shiftWorker != null)
+                        {
+                            if (b.ToLower().Contains("s"))
                             {
-                                if (b.ToLower().Contains("s"))
-                                {
-                                    shiftWorker.vacation = true;
-                                    shiftWorker.vacationReason = "senester";
-                                }
-                                else
-                                {
-                                    shiftWorker.vacation = false;
-                                    shiftWorker.vacationReason = null;
-                                }
-                                shiftWorker.shift = newShift;
-                                changed = true;
+                                shiftWorker.vacation = true;
+                                shiftWorker.vacationReason = "senester";
                             }
-
-                            if (added == true)
-                            {
-                                ctx.shiftworkers.Add(shiftWorker);
-                                ctx.SaveChanges();
-                            }
-
-                            else if (changed == true)
-                            {
-                                ctx.Entry(shiftWorker).State = System.Data.Entity.EntityState.Modified;
-                                ctx.SaveChanges();
-                            }
-
                             else
                             {
-                                //Visar alerts omn något vart fel. 
-                                //throw exception here
-                                //string errortext = " Här vart något fel vänligen dubbelkolla parametrarna";
-                                // ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + a + " " + b + errortext + "');", true);
-                                break;
+                                shiftWorker.vacation = false;
+                                shiftWorker.vacationReason = null;
                             }
+                            shiftWorker.shift = newShift;
+                            changed = true;
                         }
+
+                        if (added == true)
+                        {
+                            ctx.shiftworkers.Add(shiftWorker);
+                            ctx.SaveChanges();
+                        }
+
+                        else if (changed == true)
+                        {
+                            ctx.Entry(shiftWorker).State = System.Data.Entity.EntityState.Modified;
+                            ctx.SaveChanges();
+                        }
+
                         else
                         {
-                            newShift = null;
-                            //TODO: Varför funkar ctx.shiftworkers och inte getshiftworker()...
-                            //shiftWorker = getShiftworker(worker, date);
-                            shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
-
-                            if (shiftWorker != null)
-                            {
-                                ctx.shiftworkers.Remove(shiftWorker);
-                                ctx.SaveChanges();
-                            }
+                            //Visar alerts omn något vart fel. 
+                            //throw exception here
+                            //string errortext = " Här vart något fel vänligen dubbelkolla parametrarna";
+                            // ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + a + " " + b + errortext + "');", true);
+                            break;
                         }
-
-
-
-
                     }
-                    //http://www.entityframeworktutorial.net/EntityFramework5/create-dbcontext-in-entity-framework5.aspx
+                    else
+                    {
+                        newShift = null;
+                        //TODO: Varför funkar ctx.shiftworkers och inte getshiftworker()...
+                        //shiftWorker = getShiftworker(worker, date);
+                        shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
 
-                    //shiftWorker = ctx.shiftworkers.Where(s => s.worker == shift.value)
-                    //(s => s.StudentName == "New Student1").FirstOrDefault<Student>();
+                        if (shiftWorker != null)
+                        {
+                            ctx.shiftworkers.Remove(shiftWorker);
+                            ctx.SaveChanges();
+                        }
+                    }
+
+
+
+
                 }
+                //http://www.entityframeworktutorial.net/EntityFramework5/create-dbcontext-in-entity-framework5.aspx
 
-            
+                //shiftWorker = ctx.shiftworkers.Where(s => s.worker == shift.value)
+                //(s => s.StudentName == "New Student1").FirstOrDefault<Student>();
+            }
+
+
+        }
+        private static bool checkInputs(string input, WorkContext db)
+        {
+            bool pass = false;
+            if(input != null)
+            {
+                var compareShift = Shift.getShifts(db);
+                input = input.ToLower();
+                if (input.Count() == 1 && compareShift.Where(s => s.shiftId == input[0].ToString()) != null || input[0].ToString().ToLower() == "s")
+                {
+                    pass = true;
+                }
+                else if (input.Count() == 2 && compareShift.Where(s => s.shiftId == input[0].ToString()) != null && input[1].ToString() == "s" || input == "bl")
+                {
+                    pass = true;
+                }
+                else if (input.Count() == 3 && compareShift.Where(s => s.shiftId == input[0].ToString()) != null && input[1].ToString() == "s" && (input[2].ToString() == "f" || input[1].ToString() == "r"))
+                {
+                    pass = true;
+
+                }
+            }
+            else
+            {
+                pass = true;
+            }
+
+            return pass;
         }
     }
 }
