@@ -21,6 +21,12 @@ namespace Schedule.Models
             shift = db.shifts.Where(s => s.shiftId == id).FirstOrDefault<Shift>();
             return shift;
         }
+        public static Shift getShift(string id, WorkContext db)
+        {
+            Shift shift;
+            shift = db.shifts.Where(s => s.shiftId == id).FirstOrDefault<Shift>();
+            return shift;
+        }
         public static IEnumerable<Shift> getShifts(WorkContext db)
         {
             

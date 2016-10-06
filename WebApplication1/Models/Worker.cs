@@ -35,6 +35,15 @@ namespace Schedule.Models
             match = db.workers.Where(s => s.workerName == name).FirstOrDefault();
             return match;
         }
+        /*
+        static public Worker getWorker(string name)
+        {
+            WorkContext db = new WorkContext();
+            Worker match = new Worker();
+            match = db.workers.Where(s => s.workerName == name).FirstOrDefault();
+            return match;
+        }*/
+
 
         static public void updateWorker(Worker worker)
         {
