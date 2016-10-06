@@ -90,7 +90,8 @@ namespace Schedule.Models
                 }
                 if (a.ToString() == "Name")
                 {
-                    worker = Worker.getWorker(b.ToString(), ctx);
+                    //worker = Worker.getWorker(b.ToString(), ctx);
+                    worker = ctx.workers.Where(s => s.workerName == b.ToString().ToLower()).FirstOrDefault();
                 }
                 
                 else if(checkInputs(b, ctx))
@@ -104,8 +105,11 @@ namespace Schedule.Models
                         //newShift = ctx.shifts.Where(s => s.shiftId == match).FirstOrDefault<Shift>();
                         //shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).FirstOrDefault();
 
-                        newShift = Shift.getShift(b[0].ToString(), ctx);
-                        shiftWorker = getShiftworker(worker, date, ctx);
+                        //newShift = Shift.getShift(b[0].ToString(), ctx);
+                        string bString = b[0].ToString();
+                        newShift = ctx.shifts.Where(s => s.shiftId == bString).FirstOrDefault();
+                        //shiftWorker = getShiftworker(worker, date, ctx);
+                        shiftWorker = ctx.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr && s.date == date).Include("shift").Include("worker").FirstOrDefault();
 
                         if (shiftWorker == null && newShift != null && worker != null)
                         {
@@ -116,7 +120,7 @@ namespace Schedule.Models
                             if (b.ToLower().Contains("s"))
                             {
                                 newShiftWorker.vacation = true;
-                                newShiftWorker.vacationReason = "senester";
+                                newShiftWorker.vacationReason = "semester";
                             }
                             shiftWorker = newShiftWorker;
 
@@ -128,7 +132,7 @@ namespace Schedule.Models
                             if (b.ToLower().Contains("s"))
                             {
                                 shiftWorker.vacation = true;
-                                shiftWorker.vacationReason = "senester";
+                                shiftWorker.vacationReason = "semester";
                             }
                             else
                             {
