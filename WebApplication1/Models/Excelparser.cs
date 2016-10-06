@@ -63,8 +63,8 @@ namespace Schedule.Models
 
                         if (cellNr == 0 && cell == "")
                         {
-                            
-                            break;
+                            row++;
+                            cellNr--;
                         }
                         else
                         {
@@ -122,7 +122,6 @@ namespace Schedule.Models
             //Behöver hantera 5sb etc N: Hitta ett sätt att göra det programmatiskt tex med concat string och sedan plockja de enstaka bokstäverna. Lägga upp allt blir bara jobbigt.
             //kanske behöver skapa en till class medd avvikelser från pass med olika värden som man kan lägga till som foreign key.
             //shiftWorkerList.ForEach(c => workContext.shiftworkers.Add(c));
-            int i = 0;
             workContext.SaveChanges();
            
         }
