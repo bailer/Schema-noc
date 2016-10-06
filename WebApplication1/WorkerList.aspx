@@ -10,6 +10,7 @@
             <div>
                 <asp:Label ID="updatedLabel" Text="Entry Updated" Visible="false" runat="server"></asp:Label>
                 <asp:Label ID="deletedLabel" Text="Entry Deleted" Visible="false" runat="server"></asp:Label>
+                <asp:Label ID="deletedShiftsLabel" Text="Shifts Deleted" Visible="false" runat="server"></asp:Label>
             </div>
             <div class="Dropdown">
                 <asp:Label Text="Workers" runat="server"/>
@@ -45,8 +46,10 @@
                 </div>
                 <div>
                     <br />
+                    <asp:Button ID="newButton" Text="New Worker" OnClick="newButton_Click" runat="server" Visible="True"/>
                     <asp:Button ID="updateButton" Text="Update Worker" OnClick="updateButton_Click" runat="server" Visible="False"/>
                     <asp:Button ID="deleteButton" Text="Delete Worker" OnClick="deleteButton_Click" runat="server" Visible="False"/>
+                    <asp:Button ID="deleteShiftsButton" Text="Delete ALL shifts" OnClick="deleteShiftsButton_Click" runat="server" Visible="False"/>
                 </div>
             </div>
             

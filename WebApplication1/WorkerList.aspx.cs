@@ -9,40 +9,29 @@ using System.Web.ModelBinding;
 using System.Data;
 namespace Schedule
 {
+    //TODO gör så folk kan editera shift
     public partial class WorkerList : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 changeUser.Visible = true;
+                newButton.Visible = true;
             }
-            
-        }
-        #region Update
-        protected void workerDropdown_Load(object sender, EventArgs e)
-        {
-            if(!IsPostBack)
-            {
-                updateDropdown();
-            }
-        
-            
-        }
-        protected void workerDropdown_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            updatedLabel.Visible = false;
-            deletedLabel.Visible = false;
-            string name = workerDropdown.SelectedItem.ToString();
-            if (name != "Select a name")
-            {
-                populateWorker(name);
-            }
-            /*
-             when selected from dropdown
-             populate workerboxes
 
-             */
+        }
+        #region Buttons
+
+        protected void deleteShiftsButton_Click(object sender, EventArgs e)
+        {
+            deleteShifts(workerDropdown.Text.ToLower());
+        }
+        protected void newButton_Click(object sender, EventArgs e)
+        {
+            addWorker();
+            updateDropdown();
+
         }
         protected void updateButton_Click(object sender, EventArgs e)
         {
@@ -54,7 +43,7 @@ namespace Schedule
             else
             {
                 //TODO släng upp popup ifall namn inte är ifyllt.
-            }            
+            }
         }
         protected void deleteButton_Click(object sender, EventArgs e)
         {
@@ -68,6 +57,35 @@ namespace Schedule
                 //TODO släng upp popup ifall namn inte är ifyllt.
             }
         }
+        #endregion
+
+        #region Update
+        protected void workerDropdown_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                updateDropdown();
+            }
+
+
+        }
+        protected void workerDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updatedLabel.Visible = false;
+            deletedLabel.Visible = false;
+            deletedShiftsLabel.Visible = false;
+            string name = workerDropdown.SelectedItem.ToString();
+            if (name != "Select a name")
+            {
+                populateWorker(name);
+            }
+            /*
+             when selected from dropdown
+             populate workerboxes
+
+             */
+        }
+
 
         protected void updateDropdown()
         {
@@ -76,16 +94,26 @@ namespace Schedule
             workerDropdown.Items.Add("Select a name");
             foreach (Worker worker in query)
             {
-                workerDropdown.Items.Add(worker.workerName);
+                workerDropdown.Items.Add(worker.workerName.ToLower());
             }
+            workerName.Text = "";
+            workerAD.Text = "";
+            Admin.Checked = false;
+            workerGroup.ClearSelection();
+            defaultButtons();
         }
+
         protected void populateWorker(string name)
         {
             var db = new WorkContext();
             Worker worker = Worker.getWorker(name, db);
             workerName.Text = worker.workerName;
             workerAD.Text = worker.ad;
-            workerGroup.SelectedValue = worker.group.ToLower();
+            if (worker.group != null)
+            {
+                workerGroup.SelectedValue = worker.group.ToLower();
+            }
+
             if (worker.admin == true)
             {
                 Admin.Checked = true;
@@ -94,14 +122,13 @@ namespace Schedule
             {
                 Admin.Checked = false;
             }
-            updateButton.Visible = true;
-            deleteButton.Visible = true;
-            
+            workerButtons();
         }
+
         protected void deleteWorker(string name)
         {
-            
-            if(name != null)
+
+            if (name != null)
             {
                 Worker.deleteWorker(name);
             }
@@ -124,10 +151,6 @@ namespace Schedule
             {
                 worker.admin = false;
             }
-            workerName.Text = "";
-            workerAD.Text = "";
-            Admin.Checked = false;
-            workerGroup.ClearSelection();
             Worker.updateWorker(worker);
             updateDropdown();
             updatedLabel.Visible = true;
@@ -143,9 +166,53 @@ namespace Schedule
              */
         }
         #endregion
-        #region Addworker/days
+        #region Addworker/days /remove days
+
+        protected void deleteShifts(string name)
+        {
+            WorkContext db = new WorkContext();
+            var selected = workerDropdown.SelectedItem;
+            Worker worker = new Worker();
+            Worker.getWorker(name, db);
+            ShiftWorker.deleteShiftWorkers(worker, db);
+            deletedShiftsLabel.Visible = true;
+            /* 
+             * call this to delete all the shifts for a specific worker.
+             * forexample to get  
+             */
+        }
+
         protected void addWorker()
         {
+            var db = new WorkContext();
+            if(workerName.Text != "" && workerGroup.SelectedValue != "")
+            {
+                Worker worker = new Worker();
+                worker.workerName = workerName.Text.ToLower();
+                worker.ad = workerAD.Text.ToLower();
+                worker.group = workerGroup.SelectedValue.ToString();
+                if (Admin.Checked == true)
+                {
+                    worker.admin = true;
+                }
+                else if (Admin.Checked == false)
+                {
+                    worker.admin = false;
+                }
+
+                if (Worker.getWorker(worker.workerName, db) == null)
+                {
+                    Worker.addWorker(worker, db);
+                }
+                else
+                {
+                    //TODO
+                    //Name already exists error
+                }
+            }
+            
+
+
             /*
              new workcontext
              workername from textbox
@@ -189,11 +256,27 @@ namespace Schedule
             context save
             */
         }
-        #endregion
+        protected void defaultButtons()
+        {
+            newButton.Visible = true;
+            updateButton.Visible = false;
+            deleteButton.Visible = false;
+            deleteShiftsButton.Visible = false;
+        }
+        protected void workerButtons()
+        {
+            updateButton.Visible = true;
+            deleteButton.Visible = true;
+            deleteShiftsButton.Visible = true;
+            newButton.Visible = false;
 
+        }
+
+        #endregion
 
     }
 }
+
 /*
  <asp:GridView ID="gvPerson" runat="server" AutoGenerateColumns="False" BackColor="White"  
                 BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4"  
