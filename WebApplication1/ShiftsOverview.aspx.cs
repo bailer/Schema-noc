@@ -18,6 +18,12 @@ position: relative;
 top: expression(this.offsetParent.scrollTop);
 background-color: White;        
 }*/ //samt class.css locked i TableGenerator.addDetails(sender, e, Schedule);
+
+//TODO fixa så att man inte kan skriva in massa konstiga saker när mnan editerar gridviewem
+
+//schema int int[] array = new int[] { 1, 1, 1, 1, 1, 0, 0, 6, 6, 0, 0, 6, 4, 4, 2,2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 5, 5, 0, 0, 2, 2, 2, 0, 0 };
+// TODO ADD FUncitonality for shiftcomments
+//TODO alla på schema ska synas även om dom inte jobbar
 namespace Schedule
 {
     public partial class ShiftsOverview : Page
@@ -39,7 +45,7 @@ namespace Schedule
             string span = "";
             List<string> groupList = new List<string>();
             DateTime date = DateTime.Today;
-            int[] array = new int[] { 1, 1, 1, 1, 1, 0, 0, 6, 6, 0, 0, 6, 4, 4, 2,2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 5, 5, 0, 0, 2, 2, 2, 0, 0 };
+            
             try
             {
                 groupList = GroupCheckbox.Items.Cast<ListItem>()
@@ -58,33 +64,6 @@ namespace Schedule
         protected void Schedule_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             TableGenerator.addDetails(sender, e, Schedule);
-            /*
-            try
-            {
-                switch (e.Row.RowType)
-                {
-                    case DataControlRowType.Header:
-                        //...
-                        break;
-                    case DataControlRowType.DataRow:
-                        e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#93A3B0'; this.style.color='White'; this.style.cursor='pointer'");
-                        if (e.Row.RowState == DataControlRowState.Alternate)
-                        {
-                            e.Row.Attributes.Add("onmouseout", String.Format("this.style.color='Black';this.style.backgroundColor='{0}';", Schedule.AlternatingRowStyle.BackColor.ToKnownColor()));
-                        }
-                        else
-                        {
-                            e.Row.Attributes.Add("onmouseout", String.Format("this.style.color='Black';this.style.backgroundColor='{0}';", Schedule.RowStyle.BackColor.ToKnownColor()));
-                        }
-                        e.Row.Attributes.Add("onclick", Page.ClientScript.GetPostBackEventReference(Schedule, "Select$" + e.Row.RowIndex.ToString()));
-                        break;
-                }
-            }
-            catch
-            {
-                //...throw
-            }*/
-
         }
 
         protected void DatePicker_SelectionChanged(object sender, EventArgs e)
@@ -102,17 +81,6 @@ namespace Schedule
             PopulateSchedule();
         }
 
-        //need fixa så att detta öppnar popup från table
-        public static void clickTable()
-        {
-            int i = 0;
-            //ScriptManager.RegisterStartupScript(this, typeof(string), "OPEN_WINDOW", "var Mleft = (screen.width/2)-(760/2);var Mtop = (screen.height/2)-(700/2);window.open( 'your_page.aspx', null, 'height=700,width=760,status=yes,toolbar=no,scrollbars=yes,menubar=no,location=no,top=\'+Mtop+\', left=\'+Mleft+\'' );", true);
-        }
-
-        protected void Schedule_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         protected void Schedule_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
