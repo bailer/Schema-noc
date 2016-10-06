@@ -40,15 +40,6 @@ namespace Schedule {
         protected global::System.Web.UI.WebControls.Label deletedLabel;
         
         /// <summary>
-        /// deletedShiftsLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label deletedShiftsLabel;
-        
-        /// <summary>
         /// workerDropdown control.
         /// </summary>
         /// <remarks>
@@ -94,15 +85,6 @@ namespace Schedule {
         protected global::System.Web.UI.WebControls.CheckBox Admin;
         
         /// <summary>
-        /// newButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button newButton;
-        
-        /// <summary>
         /// updateButton control.
         /// </summary>
         /// <remarks>
@@ -119,14 +101,5 @@ namespace Schedule {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button deleteButton;
-        
-        /// <summary>
-        /// deleteShiftsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button deleteShiftsButton;
     }
 }
