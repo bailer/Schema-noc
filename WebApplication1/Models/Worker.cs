@@ -26,8 +26,8 @@ namespace Schedule.Models
             // orderby o.workerNr
             // select o;
             IEnumerable<Worker> query = db.workers.Where(s => s.workerNr != null);
-            var sortedQuery = query.OrderBy(s => s.workerName);
-            return sortedQuery;
+            
+            return query;
         }
         static public Worker getWorker(string name, WorkContext db)
         {
@@ -50,7 +50,7 @@ namespace Schedule.Models
             if (worker != null)
             {
                 // Ta bort alla shiftworkers som har att göra med den
-                ShiftWorker.deleteShiftWorkers(worker, db);
+                ShiftWorker.deleteShiftWorkers(worker);
                 db.workers.Remove(worker);
                 db.SaveChanges();
             }
@@ -60,11 +60,6 @@ namespace Schedule.Models
                //throw not found exception
             }
  
-        }
-        static public void addWorker(Worker worker, WorkContext db)
-        {
-            db.workers.Add(worker);
-            db.SaveChanges();
         }
     }
 }
