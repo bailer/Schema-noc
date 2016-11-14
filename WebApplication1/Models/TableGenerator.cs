@@ -22,7 +22,7 @@ namespace Schedule.Models
             } else if (span.ToLower().Equals("week"))
             {
                 date = date.AddDays(-(int)date.DayOfWeek + (int)DayOfWeek.Monday);
-                toDate = date.AddDays(7);
+                toDate = date.AddDays(6);
             } else
             {
                 date = date.AddDays(-(int)date.Date.Day + 1);
@@ -30,6 +30,7 @@ namespace Schedule.Models
                 toDate = toDate.AddDays(-1);
             }
             var shiftworkers = ShiftWorker.get(date, toDate, groupList);
+            var workers = Worker.getAll();
             Dictionary<string, int> addedWorkers = new Dictionary<string, int>();
             int counter = 0;
             dt.Columns.Add(new DataColumn("Name"));
@@ -47,9 +48,17 @@ namespace Schedule.Models
             foreach (var group in groupList)
             {
                 var groupListWorkers = shiftworkers.Where(p => p.worker.group == group);
+                var groupWorkers = workers.Where(p => p.group == group);
+                groupWorkers = groupWorkers.OrderBy(p => p.workerName);
                 groupListWorkers = groupListWorkers.OrderBy(p => p.worker.workerName);
-
-
+                foreach (var s in groupWorkers)
+                {
+                    DataRow row = dt.NewRow();
+                    row["Name"] = s.workerName;
+                    dt.Rows.Add(row);
+                    addedWorkers[s.workerName] = counter;
+                    counter++;
+                }
                 foreach (var s in groupListWorkers)
                 {
 
@@ -76,6 +85,7 @@ namespace Schedule.Models
                     {
                         dt.Rows[addedWorkers[s.worker.workerName]][s.date.ToShortDateString()] = shiftId;
                     }
+
                 }
 
             }
