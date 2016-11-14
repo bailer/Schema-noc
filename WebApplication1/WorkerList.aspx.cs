@@ -181,6 +181,19 @@ namespace Schedule
              * forexample to get  
              */
         }
+        protected void deleteShifts(string name, DateTime fromDate)
+        {
+            WorkContext db = new WorkContext();
+            var selected = workerDropdown.SelectedItem;
+            Worker worker = new Worker();
+            Worker.getWorker(name, db);
+            ShiftWorker.deleteShiftWorkers(worker, db, fromDate);
+            deletedShiftsLabel.Visible = true;
+            /* 
+             * call this to delete all the shifts for a specific worker.
+             * forexample to get  
+             */
+        }
 
         protected void addWorker()
         {
@@ -223,39 +236,72 @@ namespace Schedule
              ifworkerdays = yes addworkerdays()
              */
         }
-        protected void addWorkerDays()
+        protected void addWorkerDays(DateTime fromDate, Worker worker, int week /*Workcontext dbContext, DateTime toDate*/)
         {
-            /*
-            date startdag
-            int a= 0
-            new workcontext
-            while dag < slutdag
+            int startDay = 0;
+            deleteShifts(worker.workerName, fromDate);
+            int[] scheduleArr = new int[] { 1, 1, 1, 1, 1, 0, 0, 6, 6, 0, 0, 6, 4, 4, 2, 2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 5, 5, 0, 0, 2, 2, 2, 0, 0 };
 
-            if börja dagskift a= 0
-            if börja projektvecka a = 7
-            if börja dag helg =12
-            if börja kvällskift a = 14
-            if börja natt a= 21
-            if börja natt helg a= 32
-            if börja kvällskift2 a= 37
-            array =  111110066006442200000333300000003550022200
-            if(array[a] == 0)
+            switch (week)
             {
-            shiftid = array[a]
+                case 1:
+                    startDay = 0; 
+                    break;
+                case 2:
+                    startDay = 7;
+                    break;
+                case 3:
+                    startDay = 14;
+                    break;
+                case 4:
+                    startDay = 21;
+                    break;
+                case 5:
+                    startDay = 28;
+                    break;
+                case 6:
+                    startDay = 35;
+                    break;
             }
-            startdag.add(1)
-            a++
-            if(a==43)
-            {
-            a=0
+            ShiftWorker.addShifts();
+                /*
+                date startdag
+                int a= 0
+                new workcontext
+                while dag < slutdag
+
+                if börja dagskift a= 0
+                if börja projektvecka a = 7
+                if börja dag helg =12
+                if börja kvällskift a = 14
+                if börja natt a= 21
+                if börja natt helg a= 32
+                if börja kvällskift2 a= 37
+                
+                if(array[a] == 0)
+                {
+                shiftid = array[a]
+                }
+                startdag.add(1)
+                a++
+                if(a==43)
+                {
+                a=0
+                }
+
+                create shiftworker (shiftid, worker, date)
+                /while
+
+                context save
+                */
+                /*
+     * specefikation för addering av shift för ny person alt ändring av schema för person från visst datum. 
+     * Ska denna bara funka från måndagar?
+     * Man bör kunna se hur de andra shiften ser ut i närheten av dessa (ta fram exempelschema? 
+     * ta bort alla andra shift från ett visst datum/innan ändring.
+     * 
+     */
             }
-
-            create shiftworker (shiftid, worker, date)
-            /while
-
-            context save
-            */
-        }
         protected void defaultButtons()
         {
             newButton.Visible = true;

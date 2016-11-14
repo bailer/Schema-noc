@@ -49,6 +49,21 @@ namespace Schedule.Models
             }
 
         }
+        static public void deleteShiftWorkers(Worker worker, WorkContext db, DateTime fromDate)
+        {
+            var matches = db.shiftworkers.Where(s => s.worker.workerNr == worker.workerNr);
+            if (matches != null)
+            {
+                foreach (ShiftWorker shiftWorker in matches)
+                {
+                    db.shiftworkers.Remove(shiftWorker);
+
+                }
+                db.SaveChanges();
+            }
+
+        }
+
         static public ShiftWorker getShiftworker(Worker worker, DateTime date)
         {
 
@@ -218,6 +233,12 @@ namespace Schedule.Models
             }
 
             return pass;
+        }
+        public static void addShifts(Worker worker, DateTime fromDate, int[] scheduleArr, int week)
+        {
+            /*
+             * TODO IMplement adding of shifts
+             */
         }
     }
 }
