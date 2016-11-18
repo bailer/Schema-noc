@@ -29,7 +29,8 @@ namespace Schedule.Models
             double dateValue = 1;
             string cell = "-1";
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string filePath = @""+baseDir+"Schema.xlsx";
+            string filePath =@"C:\inetpub\wwwroot\Nocschema\Schema.xlsx";
+            //string filePath = @""+baseDir+"Schema.xlsx";
             bool vacation = false;
             string reason = "";
             using (FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read))
@@ -40,8 +41,9 @@ namespace Schedule.Models
             ISheet sheet = xssfwb.GetSheet("Schema1");
             shiftQuery = workContext.shifts;
             workerQuery = workContext.workers;
-            
 
+            workContext.shiftworkers.RemoveRange(workContext.shiftworkers.Where(x => x.shift != null));
+            workContext.SaveChanges();
             for (int row = 4; row <= 54; row++)
             {
                 if (sheet.GetRow(row) != null)

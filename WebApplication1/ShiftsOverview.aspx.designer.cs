@@ -22,6 +22,15 @@ namespace Schedule {
         protected global::System.Web.UI.WebControls.DropDownList DropDownSpan;
         
         /// <summary>
+        /// parseLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label parseLabel;
+        
+        /// <summary>
         /// GroupCheckbox control.
         /// </summary>
         /// <remarks>

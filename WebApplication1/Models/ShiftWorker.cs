@@ -234,7 +234,7 @@ namespace Schedule.Models
 
             return pass;
         }
-        public static void addShifts(Worker worker, DateTime fromDate, int[] scheduleArr, int week)
+        public static void addShifts(Worker worker, DateTime fromDate, int[] scheduleArr, int week, int startDay)
         {
             /*
              * TODO IMplement adding of shifts

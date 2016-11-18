@@ -14,6 +14,7 @@ namespace Schedule
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //If it isnt a postback request show the new and change buttons as default
             if (!IsPostBack)
             {
                 changeUser.Visible = true;
@@ -22,17 +23,19 @@ namespace Schedule
 
         }
         #region Buttons
-
+        // Buttons for different operations
         protected void deleteShiftsButton_Click(object sender, EventArgs e)
         {
             deleteShifts(workerDropdown.Text.ToLower());
         }
+        //Creates a new worker
         protected void newButton_Click(object sender, EventArgs e)
         {
             addWorker();
             updateDropdown();
 
         }
+        //Updates a current worker
         protected void updateButton_Click(object sender, EventArgs e)
         {
             string name = workerDropdown.SelectedItem.ToString().ToLower();
@@ -45,6 +48,7 @@ namespace Schedule
                 //TODO släng upp popup ifall namn inte är ifyllt.
             }
         }
+        //Removes a worker
         protected void deleteButton_Click(object sender, EventArgs e)
         {
             string name = workerDropdown.SelectedItem.ToString().ToLower();
@@ -168,12 +172,17 @@ namespace Schedule
         #endregion
         #region Addworker/days /remove days
 
+        //Removes shifts
         protected void deleteShifts(string name)
         {
+            //Creates a new workcontext and a new worker
             WorkContext db = new WorkContext();
-            var selected = workerDropdown.SelectedItem;
             Worker worker = new Worker();
+
+            //Gets the worker with the name
             Worker.getWorker(name, db);
+
+            //Calls the deleteShifts function and shows the "deleted" label
             ShiftWorker.deleteShiftWorkers(worker, db);
             deletedShiftsLabel.Visible = true;
             /* 
@@ -181,10 +190,10 @@ namespace Schedule
              * forexample to get  
              */
         }
+        //same as above however only deletes from a certain date.
         protected void deleteShifts(string name, DateTime fromDate)
         {
             WorkContext db = new WorkContext();
-            var selected = workerDropdown.SelectedItem;
             Worker worker = new Worker();
             Worker.getWorker(name, db);
             ShiftWorker.deleteShiftWorkers(worker, db, fromDate);
@@ -194,9 +203,10 @@ namespace Schedule
              * forexample to get  
              */
         }
-
+        //Function collects information from the textboxes and creates a worker. It then calls the addWorker function in the Worker class to save it
         protected void addWorker()
         {
+            //Create a workcontext and collect information if the textbox and group dropdown are not empty
             var db = new WorkContext();
             if(workerName.Text != "" && workerGroup.SelectedValue != "")
             {
@@ -212,7 +222,7 @@ namespace Schedule
                 {
                     worker.admin = false;
                 }
-
+                // if this worker does not exist save the worker by calling the addWorker function in the Worker class
                 if (Worker.getWorker(worker.workerName, db) == null)
                 {
                     Worker.addWorker(worker, db);
@@ -236,12 +246,16 @@ namespace Schedule
              ifworkerdays = yes addworkerdays()
              */
         }
+        //Used to add a bulk of days at once to a worker.
         protected void addWorkerDays(DateTime fromDate, Worker worker, int week /*Workcontext dbContext, DateTime toDate*/)
         {
-            int startDay = 0;
+            int startDay = 99;
             deleteShifts(worker.workerName, fromDate);
+
+            // schedule per day in numbers including free days
             int[] scheduleArr = new int[] { 1, 1, 1, 1, 1, 0, 0, 6, 6, 0, 0, 6, 4, 4, 2, 2, 0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 3, 5, 5, 0, 0, 2, 2, 2, 0, 0 };
 
+            //what week the person wants to start the counting
             switch (week)
             {
                 case 1:
@@ -263,7 +277,15 @@ namespace Schedule
                     startDay = 35;
                     break;
             }
-            ShiftWorker.addShifts();
+            // call addShifts in shiftWorker for adding and saving the shifts to the context if startDay is not at its default value
+            if(startDay != 99)
+            {
+                ShiftWorker.addShifts(worker, fromDate, scheduleArr, week, startDay);
+            }
+            else
+            {
+                //Show startday not selected label
+            }
                 /*
                 date startdag
                 int a= 0
@@ -302,6 +324,7 @@ namespace Schedule
      * 
      */
             }
+        //Set the default buttons as visible and all others as invis
         protected void defaultButtons()
         {
             newButton.Visible = true;
@@ -309,6 +332,8 @@ namespace Schedule
             deleteButton.Visible = false;
             deleteShiftsButton.Visible = false;
         }
+        
+        //When you have selected a worker from the dropdown set update and delete as visible and rest as invis.
         protected void workerButtons()
         {
             updateButton.Visible = true;
@@ -363,3 +388,4 @@ namespace Schedule
                 </asp:GridView> 
      
      */
+     

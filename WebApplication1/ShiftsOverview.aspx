@@ -1,12 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShiftsOverview.aspx.cs" EnableEventValidation="false"  Inherits="Schedule.ShiftsOverview" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ShiftsOverview.aspx.cs" Async="true" EnableEventValidation="false"  Inherits="Schedule.ShiftsOverview" %>
 <asp:Content ID="ShiftOverview" ContentPlaceHolderID="MainContent" runat="server">
 
-    
+
     <asp:DropDownList ID="DropDownSpan" runat="server" OnTextChanged="DropDownSpan_SelectedIndexChanged" AutoPostBack="true">
         <asp:ListItem>Day</asp:ListItem>
         <asp:ListItem>Week</asp:ListItem>
         <asp:ListItem>Month</asp:ListItem>
     </asp:DropDownList>
+    <asp:Label ID="parseLabel"  Visible="true" runat="server"></asp:Label>
     <asp:CheckBoxList ID="GroupCheckbox" runat="server" AutoPostBack="True" OnSelectedIndexChanged="GroupCheckbox_SelectedIndexChanged">
         <asp:ListItem Selected="True" Value="noc">NOC</asp:ListItem>
         <asp:ListItem Selected="True" Value="vikarie">Vikarier</asp:ListItem>

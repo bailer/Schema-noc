@@ -9,6 +9,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Drawing;
+using System.Threading.Tasks;
+using System.ComponentModel;
 
 //Need varför blir alla cells större när man väljer månad som selection?
 //need 2 ordna så att man använder hela skärmen till vänster och flytta table kontrollerna (kalender, dropdown etc) till en kolumn längst till höger.
@@ -116,6 +118,7 @@ namespace Schedule
 
         protected void Schedule_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            //TODO se till att man kan ändra namn på workers direkt i shiftoverview. alternativt se till att name fälten inte går att editera (krashar programmet)
             //TODO: koppla mot exception i shiftoworker.update om några errors hittades.
             ShiftWorker.updateFromGridView(sender, e);
             Schedule.EditIndex = -1;
@@ -137,9 +140,28 @@ namespace Schedule
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var _db = new Schedule.Models.WorkContext();
-            var parser = new Schedule.Models.Excelparser();
-            parser.excelParser(_db);
+            Button1.Visible = false;
+            parseLabel.Text = "Updating";
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
+            {
+                
+                var _db = new Schedule.Models.WorkContext();
+                var parser = new Schedule.Models.Excelparser();
+                parser.excelParser(_db);
+                
+            });
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(
+                delegate (object o, RunWorkerCompletedEventArgs args)
+                {
+                    
+                    parseLabel.Text = "Completed";
+                    Button1.Visible = true;
+                }
+            );
+            
+            bw.RunWorkerAsync();
+
         }
     }
 }
